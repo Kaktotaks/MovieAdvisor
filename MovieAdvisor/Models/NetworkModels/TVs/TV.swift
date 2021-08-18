@@ -1,6 +1,6 @@
 import Foundation
 
-struct TVs: Codable {
+struct TV: Codable {
 	let name : String?
 	let first_air_date : String?
 	let genre_ids : [Int]?
@@ -53,3 +53,4 @@ struct TVs: Codable {
 	}
 
 }
+//!

@@ -48,6 +48,7 @@
                             <constraint firstItem="U5G-QA-YBx" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="O7K-KB-H28"/>
                             <constraint firstItem="U5G-QA-YBx" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="WgN-JT-sCA"/>
                             <constraint firstItem="euT-nQ-ssP" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="bQe-FP-jMY"/>
+                            <constraint firstItem="U5G-QA-YBx" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="gqS-gO-kSL"/>
                             <constraint firstAttribute="bottom" secondItem="vOE-o6-MUl" secondAttribute="bottom" id="jtV-iO-DC1"/>
                             <constraint firstItem="U5G-QA-YBx" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="juz-tn-E18"/>
                             <constraint firstItem="vOE-o6-MUl" firstAttribute="top" secondItem="euT-nQ-ssP" secondAttribute="bottom" constant="10" id="nDM-d9-cYO"/>
@@ -116,10 +117,10 @@
             </objects>
             <point key="canvasLocation" x="945" y="773"/>
         </scene>
-        <!--Movie Details View Controller-->
+        <!--Details View Controller-->
         <scene sceneID="yeU-K2-p0r">
             <objects>
-                <viewController storyboardIdentifier="MovieDetailsViewController" id="AAi-Ij-MGI" customClass="MovieDetailsViewController" customModule="MovieAdvisor" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TVDetailsViewController" id="AAi-Ij-MGI" customClass="TVDetailsViewController" customModule="MovieAdvisor" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="TVT-Ht-4d7">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -204,7 +205,22 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iVd-tG-dQ4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1902.8985507246377" y="442.63392857142856"/>
+            <point key="canvasLocation" x="2125" y="-478"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="Ea5-hO-6AS">
+            <objects>
+                <viewController id="7Ei-3K-4WC" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="jB6-hm-w6s">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="T9x-es-dPN"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fKb-iP-Cmi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2125" y="354"/>
         </scene>
         <!--Item-->
         <scene sceneID="YOs-MO-CM9">

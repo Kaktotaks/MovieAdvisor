@@ -1,5 +1,5 @@
 //
-//  MovieDetailsViewController.swift
+//  TVDetailsViewController.swift
 //  TMDB my self
 //
 //  Created by Леонід Шевченко on 03.08.2021.
@@ -12,7 +12,7 @@ import youtube_ios_player_helper
 import Alamofire
 
 
-class MovieDetailsViewController: UIViewController {
+class TVDetailsViewController: UIViewController {
     
     
     @IBOutlet weak var posterImageView: UIImageView!
@@ -26,13 +26,13 @@ class MovieDetailsViewController: UIViewController {
     
     let baseImageURL = "https://image.tmdb.org/t/p/w500/"
     
-    var tvMovie: TVs? = nil
+    var tv: TV? = nil
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         
-        if let id = self.tvMovie?.id {
+        if let id = self.tv?.id {
             let stringID = String(describing: id)
             self.requestVideos(with: stringID)
         }
@@ -55,26 +55,18 @@ class MovieDetailsViewController: UIViewController {
         }
     }
     
-//    private func loadByKey(_ key: String) {
-//
-//        print(key)
-//        print("SUCCESS!")
-//
-//                self.videoPlayerView.load(withVideoId: key)
-//
-//    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         
-        self.title = self.tvMovie?.name
-        self.descriptionLabel.text = self.tvMovie?.overview
-        self.filmLanguageLabel.text = self.tvMovie?.original_language
-        self.firstAirDateLabel.text = self.tvMovie?.first_air_date
-        self.voteAverageLabel.text = String(describing:self.tvMovie!.vote_average!)
+        self.title = self.tv?.name
+        self.descriptionLabel.text = self.tv?.overview
+        self.filmLanguageLabel.text = self.tv?.original_language
+        self.firstAirDateLabel.text = self.tv?.first_air_date
+        self.voteAverageLabel.text = String(describing:self.tv!.vote_average!)
         
-        if let posterPath = self.tvMovie?.posterPath {
+        if let posterPath = self.tv?.posterPath {
 
             // Тогда создадим полную ссылку на картинку
             let urlString = self.baseImageURL + posterPath
@@ -84,7 +76,7 @@ class MovieDetailsViewController: UIViewController {
 
         }
         
-        self.title = self.tvMovie?.name
+        self.title = self.tv?.name
   
         let logoutBarButtonItem = UIBarButtonItem(title: "+", style: .done, target: self, action: #selector(addToWatchLaterButtonPressed))
         self.navigationItem.rightBarButtonItem  = logoutBarButtonItem
@@ -95,13 +87,13 @@ class MovieDetailsViewController: UIViewController {
     
     @IBAction func addToWatchLaterButtonPressed(_ sender: Any) {
         let tvRealm = TVRealm()
-        tvRealm.name = self.tvMovie?.name ?? ""
-        tvRealm.popularity = self.tvMovie?.popularity ?? 0.0
-        tvRealm.overview = self.tvMovie?.overview ?? ""
-        tvRealm.id = self.tvMovie?.id ?? 0
-        tvRealm.backdrop_path = self.tvMovie?.backdrop_path ?? ""
-        tvRealm.media_type = self.tvMovie?.media_type ?? ""
-        tvRealm.posterPath = self.tvMovie?.posterPath ?? ""
+        tvRealm.name = self.tv?.name ?? ""
+        tvRealm.popularity = self.tv?.popularity ?? 0.0
+        tvRealm.overview = self.tv?.overview ?? ""
+        tvRealm.id = self.tv?.id ?? 0
+        tvRealm.backdrop_path = self.tv?.backdrop_path ?? ""
+        tvRealm.media_type = self.tv?.media_type ?? ""
+        tvRealm.posterPath = self.tv?.posterPath ?? ""
 
         try? realm?.write {
             realm?.add(tvRealm)
@@ -109,4 +101,7 @@ class MovieDetailsViewController: UIViewController {
     }
     
 }
+
+
+
 

@@ -1,8 +1,10 @@
+
+
 import Foundation
 
-struct TMDBResult : Codable {
+struct PopularMovieResult : Codable {
 	let page : Int?
-	let movies : [TVs]?
+	let movies : [Movie]?
 	let total_pages : Int?
 	let total_results : Int?
 
@@ -17,7 +19,7 @@ struct TMDBResult : Codable {
 	init(from decoder: Decoder) throws {
 		let values = try decoder.container(keyedBy: CodingKeys.self)
 		page = try values.decodeIfPresent(Int.self, forKey: .page)
-        movies = try values.decodeIfPresent([TVs].self, forKey: .movies)
+        movies = try values.decodeIfPresent([Movie].self, forKey: .movies)
 		total_pages = try values.decodeIfPresent(Int.self, forKey: .total_pages)
 		total_results = try values.decodeIfPresent(Int.self, forKey: .total_results)
 	}
