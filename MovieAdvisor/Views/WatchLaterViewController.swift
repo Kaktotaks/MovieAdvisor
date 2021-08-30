@@ -10,7 +10,8 @@ import RealmSwift
 
 class WatchLaterViewController: UIViewController {
     
-    var movies: [TVRealm] = []
+    var tvs: [TVRealm] = []
+    var movies: [MovieRealm] = []
     
     let realm = try? Realm()
     
@@ -25,10 +26,12 @@ class WatchLaterViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.movies = self.getTVs()
+        self.tvs = self.getTVs()
+        self.movies = self.getMovies()
         self.tableView.reloadData()
     }
     
+    //MARK: -
     private func getTVs() -> [TVRealm] {
         
         var TVs = [TVRealm]()
@@ -38,17 +41,31 @@ class WatchLaterViewController: UIViewController {
         }
         return TVs
     }
+    //MARK: -
+    private func getMovies() -> [MovieRealm] {
+        
+        var movies = [MovieRealm]()
+        guard let moviesResults = realm?.objects(MovieRealm.self) else { return [] }
+        for movie in moviesResults {
+            movies.append(movie)
+        }
+        return movies
+    }
+    
+    
     
 }
 
 extension WatchLaterViewController:UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return movies.count
+        return tvs.count
+//        return movies.count
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell")
-        cell?.textLabel?.text = self.movies[indexPath.row].name
+        cell?.textLabel?.text = self.tvs[indexPath.row].name
         return cell ?? UITableViewCell()
     }
     

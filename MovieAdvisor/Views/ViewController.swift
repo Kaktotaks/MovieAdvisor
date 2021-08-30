@@ -15,7 +15,7 @@ class ViewController: UIViewController {
     var movies: [Movie] = []
     
     let realm = try? Realm()
-
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var TVMovieSegmentedControl: UISegmentedControl!
     
@@ -23,10 +23,9 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
-//        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "MovieCell")
-
         
-        self.title = "Movies/TVs"
+        
+        self.title = "TVs/Movies"
         self.navigationController?.navigationBar.prefersLargeTitles = false
     }
     
@@ -38,15 +37,14 @@ class ViewController: UIViewController {
         
     }
     
-
     
     
-    // Обновление сериалов
+    //MARK: - Network request for reloading TVs
     func requestTrendingTVies() {
         
         let url = "https://api.themoviedb.org/3/trending/tv/week?api_key=242869b42a65c82d7bfdc955a766ce9f"
         AF.request(url).responseJSON { responce in
-
+            
             let decoder = JSONDecoder()
             
             if let data = try? decoder.decode(PopularTVResult.self, from: responce.data!){
@@ -57,12 +55,12 @@ class ViewController: UIViewController {
         }
     }
     
-    //Обновление фильмов
+    //MARK: - Network request for reloading movies
     func requestTrendingMovies() {
         
         let url = "https://api.themoviedb.org/3/trending/movie/week?api_key=242869b42a65c82d7bfdc955a766ce9f"
         AF.request(url).responseJSON { responce in
-
+            
             let decoder = JSONDecoder()
             
             if let data = try? decoder.decode(PopularMovieResult.self, from: responce.data!){
@@ -76,20 +74,20 @@ class ViewController: UIViewController {
     
 }
 
-
+//MARK: - DataSource for tableView
 extension ViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let selectedIndex = self.TVMovieSegmentedControl.selectedSegmentIndex
-            switch selectedIndex
-            {
-            case 0:
-                return tvies.count
-            case 1:
-                return movies.count
-            default:
-                return 0
-            }
+        switch selectedIndex
+        {
+        case 0:
+            return tvies.count
+        case 1:
+            return movies.count
+        default:
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -99,12 +97,12 @@ extension ViewController: UITableViewDataSource {
         switch selectedIndex {
         case 0:
             cell.textLabel?.text = tvies[indexPath.row].name
-        return cell
+            return cell
         case 1:
             cell.textLabel?.text = movies[indexPath.row].title
-        return cell
+            return cell
         default:
-        return UITableViewCell()
+            return UITableViewCell()
         }
         
         
@@ -114,23 +112,33 @@ extension ViewController: UITableViewDataSource {
         self.tableView.reloadData()
     }
 }
-
+//MARK: - Delegate for tableView
 extension ViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
-        let identifier = String(describing: TVDetailsViewController.self)
-
+        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        if let detailViewController = storyboard.instantiateViewController(identifier: identifier) as? TVDetailsViewController {
+        
+        //MARK: Delegate for TVs
+        let TVidentifier = String(describing: TVDetailsViewController.self)
+        
+        if let detailViewController = storyboard.instantiateViewController(identifier: TVidentifier) as? TVDetailsViewController {
             detailViewController.tv = self.tvies[indexPath.row]
-//            detailViewController.tvMovie = self.tvies[indexPath.row]
-
-
+            
             self.navigationController?.pushViewController(detailViewController, animated: true)
         }
+        //MARK: Delegate for movies
+        let movieidentifier = String(describing: MovieDetailsViewController.self)
+        
+        if let detailViewController = storyboard.instantiateViewController(identifier: movieidentifier) as? MovieDetailsViewController {
+            detailViewController.movie = self.movies[indexPath.row]
+            
+            self.navigationController?.pushViewController(detailViewController, animated: true)
+        }
+        
+        
+        
     }
-    
     
     
 }

@@ -1,8 +1,8 @@
 //
 //  MovieDetailsViewController.swift
-//  TMDB my self
+//  MovieAdvisor
 //
-//  Created by Леонід Шевченко on 03.08.2021.
+//  Created by Леонід Шевченко on 30.08.2021.
 //
 
 import UIKit
@@ -12,7 +12,7 @@ import youtube_ios_player_helper
 import Alamofire
 
 
-class TVDetailsViewController: UIViewController {
+class MovieDetailsViewController: UIViewController {
     
     
     @IBOutlet weak var posterImageView: UIImageView!
@@ -26,23 +26,21 @@ class TVDetailsViewController: UIViewController {
     
     let baseImageURL = "https://image.tmdb.org/t/p/w500/"
     
-    var tv: TV? = nil
-
+    var movie: Movie? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         
-        if let id = self.tv?.id {
+        if let id = self.movie?.id {
             let stringID = String(describing: id)
             self.requestVideos(with: stringID)
         }
-
-        
     }
     
     func requestVideos(with id: String) {
         
-        let url = "https://api.themoviedb.org/3/tv/\(id)/videos?api_key=242869b42a65c82d7bfdc955a766ce9f&language=en-US"
+        let url = "https://api.themoviedb.org/3/movie/\(id)/videos?api_key=242869b42a65c82d7bfdc955a766ce9f&language=en-US"
         
         AF.request(url).responseJSON { responce in
 
@@ -55,18 +53,17 @@ class TVDetailsViewController: UIViewController {
         }
     }
     
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         
-        self.title = self.tv?.name
-        self.descriptionLabel.text = self.tv?.overview
-        self.filmLanguageLabel.text = self.tv?.original_language
-        self.firstAirDateLabel.text = self.tv?.first_air_date
-        self.voteAverageLabel.text = String(describing:self.tv!.vote_average!)
+        self.title = self.movie?.title
+        self.descriptionLabel.text = self.movie?.overview
+        self.filmLanguageLabel.text = self.movie?.original_language
+        self.firstAirDateLabel.text = self.movie?.release_date
+        self.voteAverageLabel.text = String(describing:self.movie!.vote_average!)
         
-        if let posterPath = self.tv?.posterPath {
+        if let posterPath = self.movie?.poster_path {
 
             // Тогда создадим полную ссылку на картинку
             let urlString = self.baseImageURL + posterPath
@@ -76,7 +73,7 @@ class TVDetailsViewController: UIViewController {
 
         }
         
-        self.title = self.tv?.name
+        self.title = self.movie?.title
   
         let logoutBarButtonItem = UIBarButtonItem(title: "+", style: .done, target: self, action: #selector(addToWatchLaterButtonPressed))
         self.navigationItem.rightBarButtonItem  = logoutBarButtonItem
@@ -86,25 +83,22 @@ class TVDetailsViewController: UIViewController {
     }
     
     @IBAction func addToWatchLaterButtonPressed(_ sender: Any) {
-        let tvRealm = TVRealm()
-        tvRealm.name = self.tv?.name ?? ""
-        tvRealm.popularity = self.tv?.popularity ?? 0.0
-        tvRealm.overview = self.tv?.overview ?? ""
-        tvRealm.id = self.tv?.id ?? 0
-        tvRealm.backdrop_path = self.tv?.backdrop_path ?? ""
-        tvRealm.media_type = self.tv?.media_type ?? ""
-        tvRealm.posterPath = self.tv?.posterPath ?? ""
+        let movieRealm = MovieRealm()
+        movieRealm.name = self.movie?.title ?? ""
+        movieRealm.popularity = self.movie?.popularity ?? 0.0
+        movieRealm.overview = self.movie?.overview ?? ""
+        movieRealm.id = self.movie?.id ?? 0
+        movieRealm.backdrop_path = self.movie?.backdrop_path ?? ""
+        movieRealm.posterPath = self.movie?.poster_path ?? ""
 
         try? realm?.write {
-            realm?.add(tvRealm)
+            realm?.add(movieRealm)
         }
     }
     
+    
+    
+    
+    
+    
 }
-
-
-
-
-
-
-
