@@ -17,11 +17,13 @@ class ViewController: UIViewController {
     let realm = try? Realm()
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var TVMovieSegmentedControl: UISegmentedControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+//        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "MovieCell")
 
         
         self.title = "Movies/TVs"
@@ -32,18 +34,11 @@ class ViewController: UIViewController {
         super.viewWillAppear(animated)
         
         self.requestTrendingTVies()
+        self.requestTrendingMovies()
         
     }
     
-    @IBAction func TVorMovieSegmentChanged(_ sender: UISegmentedControl) {
-        if sender.selectedSegmentIndex == 0 {
-            self.requestTrendingTVies()
-        } else {
 
-            self.requestTrendingMovies()
-        }
-        
-    }
     
     
     // Обновление сериалов
@@ -79,43 +74,62 @@ class ViewController: UIViewController {
     }
     
     
-    
-    
 }
 
 
 extension ViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.tvies.count
+        let selectedIndex = self.TVMovieSegmentedControl.selectedSegmentIndex
+            switch selectedIndex
+            {
+            case 0:
+                return tvies.count
+            case 1:
+                return movies.count
+            default:
+                return 0
+            }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") else {
-            return UITableViewCell()
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let selectedIndex = self.TVMovieSegmentedControl.selectedSegmentIndex
+        switch selectedIndex {
+        case 0:
+            cell.textLabel?.text = tvies[indexPath.row].name
+        return cell
+        case 1:
+            cell.textLabel?.text = movies[indexPath.row].title
+        return cell
+        default:
+        return UITableViewCell()
         }
         
         
-        cell.textLabel?.text = self.tvies[indexPath.row].name
-        return cell
     }
     
+    @IBAction func TVMovieSegmentedChanged(_ sender: UISegmentedControl) {
+        self.tableView.reloadData()
+    }
 }
 
 extension ViewController: UITableViewDelegate {
     
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//
-//        let identifier = String(describing: TVDetailsViewController.self)
-//
-//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//        if let detailViewController = storyboard.instantiateViewController(identifier: identifier) as? TVDetailsViewController {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+        let identifier = String(describing: TVDetailsViewController.self)
+
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if let detailViewController = storyboard.instantiateViewController(identifier: identifier) as? TVDetailsViewController {
+            detailViewController.tv = self.tvies[indexPath.row]
 //            detailViewController.tvMovie = self.tvies[indexPath.row]
-//
-//
-//            self.navigationController?.pushViewController(detailViewController, animated: true)
-//        }
-//    }
+
+
+            self.navigationController?.pushViewController(detailViewController, animated: true)
+        }
+    }
     
     
     

@@ -38,7 +38,7 @@
                                     <segment title="Movies"/>
                                 </segments>
                                 <connections>
-                                    <action selector="TVorMovieSegmentChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="cZE-mi-j6n"/>
+                                    <action selector="TVMovieSegmentedChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="aAw-Ui-j0t"/>
                                 </connections>
                             </segmentedControl>
                         </subviews>
@@ -59,6 +59,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="7Y6-rQ-gUc"/>
                     <connections>
+                        <outlet property="TVMovieSegmentedControl" destination="euT-nQ-ssP" id="YQX-oX-DbF"/>
                         <outlet property="tableView" destination="vOE-o6-MUl" id="919-SV-M96"/>
                     </connections>
                 </viewController>
