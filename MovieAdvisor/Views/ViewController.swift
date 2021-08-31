@@ -119,26 +119,43 @@ extension ViewController: UITableViewDelegate {
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
-        //MARK: Delegate for TVs
-        let TVidentifier = String(describing: TVDetailsViewController.self)
+        let selectedIndex = self.TVMovieSegmentedControl.selectedSegmentIndex
         
-        if let detailViewController = storyboard.instantiateViewController(identifier: TVidentifier) as? TVDetailsViewController {
-            detailViewController.tv = self.tvies[indexPath.row]
+        switch selectedIndex {
+        case 0:
+            let TVidentifier = String(describing: TVDetailsViewController.self)
             
-            self.navigationController?.pushViewController(detailViewController, animated: true)
-        }
-        //MARK: Delegate for movies
-        let movieidentifier = String(describing: MovieDetailsViewController.self)
-        
-        if let detailViewController = storyboard.instantiateViewController(identifier: movieidentifier) as? MovieDetailsViewController {
-            detailViewController.movie = self.movies[indexPath.row]
+            if let detailViewController = storyboard.instantiateViewController(identifier: TVidentifier) as? TVDetailsViewController {
+                detailViewController.tv = self.tvies[indexPath.row]
+                
+                self.navigationController?.pushViewController(detailViewController, animated: true)
+            }
+        case 1:
+            let movieidentifier = String(describing: MovieDetailsViewController.self)
             
-            self.navigationController?.pushViewController(detailViewController, animated: true)
+            if let detailViewController = storyboard.instantiateViewController(identifier: movieidentifier) as? MovieDetailsViewController {
+                detailViewController.movie = self.movies[indexPath.row]
+                
+                self.navigationController?.pushViewController(detailViewController, animated: true)
+            }
+        
+        default:
+            let TVidentifier = String(describing: TVDetailsViewController.self)
+            
+            if let detailViewController = storyboard.instantiateViewController(identifier: TVidentifier) as? TVDetailsViewController {
+                detailViewController.tv = self.tvies[indexPath.row]
+                
+                self.navigationController?.pushViewController(detailViewController, animated: true)
+            }
         }
-        
-        
         
     }
+    
+    //MARK:- Saving
+    //MARK:- Saving
+    //MARK:- Saving
+    //MARK:- Saving
+    
     
     
 }
