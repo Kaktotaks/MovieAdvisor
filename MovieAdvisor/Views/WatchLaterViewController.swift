@@ -16,6 +16,7 @@ class WatchLaterViewController: UIViewController {
     let realm = try? Realm()
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var TMWLSegmentedControl: UISegmentedControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,20 +54,42 @@ class WatchLaterViewController: UIViewController {
     }
     
     
-    
 }
 
 extension WatchLaterViewController:UITableViewDataSource {
+    
+    @IBAction func TMWLSegmentedControlChanged(_ sender: Any) {
+        self.tableView.reloadData()
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tvs.count
-//        return movies.count
+        let selectedIndex = self.TMWLSegmentedControl.selectedSegmentIndex
+        switch selectedIndex
+        {
+        case 0:
+            return tvs.count
+        case 1:
+            return movies.count
+        default:
+            return 0
+        }
         
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell")
-        cell?.textLabel?.text = self.tvs[indexPath.row].name
-        return cell ?? UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath )
+        let selectedIndex = self.TMWLSegmentedControl.selectedSegmentIndex
+        
+        switch selectedIndex {
+            case 0:
+                cell.textLabel?.text = tvs[indexPath.row].name
+                return cell
+            case 1:
+                cell.textLabel?.text = movies[indexPath.row].name
+                return cell
+            default:
+                return UITableViewCell()
+            }
     }
     
     

@@ -85,41 +85,6 @@
             </objects>
             <point key="canvasLocation" x="-1035" y="320"/>
         </scene>
-        <!--Watch Later View Controller-->
-        <scene sceneID="QHq-aT-LkK">
-            <objects>
-                <viewController id="vY7-Ps-KN8" customClass="WatchLaterViewController" customModule="MovieAdvisor" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="rD7-O2-bOs">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="gS8-cy-5Xm">
-                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="vY7-Ps-KN8" id="6QA-QO-WIz"/>
-                                    <outlet property="delegate" destination="vY7-Ps-KN8" id="kQJ-bZ-QgP"/>
-                                </connections>
-                            </tableView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="e3D-Na-vwp"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="e3D-Na-vwp" firstAttribute="trailing" secondItem="gS8-cy-5Xm" secondAttribute="trailing" id="Aff-S5-a57"/>
-                            <constraint firstItem="gS8-cy-5Xm" firstAttribute="leading" secondItem="e3D-Na-vwp" secondAttribute="leading" id="R4Z-fb-GZJ"/>
-                            <constraint firstItem="gS8-cy-5Xm" firstAttribute="top" secondItem="e3D-Na-vwp" secondAttribute="top" id="doK-Wy-AqJ"/>
-                            <constraint firstItem="e3D-Na-vwp" firstAttribute="bottom" secondItem="gS8-cy-5Xm" secondAttribute="bottom" id="vwj-so-bJI"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="WID-je-yh5"/>
-                    <connections>
-                        <outlet property="tableView" destination="gS8-cy-5Xm" id="Isa-PY-XST"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Dx8-HL-ATP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="945" y="773"/>
-        </scene>
         <!--Details View Controller-->
         <scene sceneID="yeU-K2-p0r">
             <objects>
@@ -311,12 +276,60 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="vY7-Ps-KN8" kind="relationship" relationship="rootViewController" id="ia6-HN-f6q"/>
+                        <segue destination="k31-GM-Knf" kind="relationship" relationship="rootViewController" id="85a-fB-6zc"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tdG-A2-tFN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="35" y="773"/>
+        </scene>
+        <!--Watch Later View Controller-->
+        <scene sceneID="wrd-JE-A8P">
+            <objects>
+                <viewController id="k31-GM-Knf" customClass="WatchLaterViewController" customModule="MovieAdvisor" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="mDK-Hj-MjG">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="JcW-gD-uQE">
+                                <rect key="frame" x="0.0" y="135" width="414" height="761"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="k31-GM-Knf" id="b9k-ej-vdU"/>
+                                    <outlet property="delegate" destination="k31-GM-Knf" id="9dZ-0G-Bgn"/>
+                                </connections>
+                            </tableView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="6dC-YV-Vxv">
+                                <rect key="frame" x="144.5" y="96" width="125" height="32"/>
+                                <segments>
+                                    <segment title="TVs"/>
+                                    <segment title="Movies"/>
+                                </segments>
+                                <connections>
+                                    <action selector="TMWLSegmentedControlChanged:" destination="k31-GM-Knf" eventType="valueChanged" id="X89-4P-6qk"/>
+                                </connections>
+                            </segmentedControl>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Rif-BP-Zoz"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="6dC-YV-Vxv" firstAttribute="centerX" secondItem="JcW-gD-uQE" secondAttribute="centerX" id="1nA-LD-2k4"/>
+                            <constraint firstAttribute="bottom" secondItem="JcW-gD-uQE" secondAttribute="bottom" id="gCK-Y8-hLp"/>
+                            <constraint firstItem="JcW-gD-uQE" firstAttribute="top" secondItem="6dC-YV-Vxv" secondAttribute="bottom" constant="8" id="mrA-VF-bFj"/>
+                            <constraint firstItem="JcW-gD-uQE" firstAttribute="trailing" secondItem="Rif-BP-Zoz" secondAttribute="trailing" id="syd-85-Dgr"/>
+                            <constraint firstItem="JcW-gD-uQE" firstAttribute="leading" secondItem="Rif-BP-Zoz" secondAttribute="leading" id="y6a-3K-Amq"/>
+                            <constraint firstItem="6dC-YV-Vxv" firstAttribute="top" secondItem="Rif-BP-Zoz" secondAttribute="top" constant="8" id="zWP-pW-FIh"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="uQM-iJ-FRP"/>
+                    <connections>
+                        <outlet property="TMWLSegmentedControl" destination="6dC-YV-Vxv" id="ghZ-1g-rbM"/>
+                        <outlet property="tableView" destination="JcW-gD-uQE" id="AK0-NA-UmL"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dlN-ka-bCE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="908.69565217391312" y="772.76785714285711"/>
         </scene>
     </scenes>
     <resources>

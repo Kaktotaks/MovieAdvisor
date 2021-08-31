@@ -11,7 +11,7 @@ struct Movie : Codable {
 	let popularity : Double?
 	let poster_path : String?
 	let release_date : String?
-	let title : String?
+	let name : String?
 	let video : Bool?
 	let vote_average : Double?
 	let vote_count : Int?
@@ -28,7 +28,7 @@ struct Movie : Codable {
 		case popularity = "popularity"
 		case poster_path = "poster_path"
 		case release_date = "release_date"
-		case title = "title"
+		case name = "title"
 		case video = "video"
 		case vote_average = "vote_average"
 		case vote_count = "vote_count"
@@ -46,7 +46,7 @@ struct Movie : Codable {
 		popularity = try values.decodeIfPresent(Double.self, forKey: .popularity)
 		poster_path = try values.decodeIfPresent(String.self, forKey: .poster_path)
 		release_date = try values.decodeIfPresent(String.self, forKey: .release_date)
-		title = try values.decodeIfPresent(String.self, forKey: .title)
+        name = try values.decodeIfPresent(String.self, forKey: .name)
 		video = try values.decodeIfPresent(Bool.self, forKey: .video)
 		vote_average = try values.decodeIfPresent(Double.self, forKey: .vote_average)
 		vote_count = try values.decodeIfPresent(Int.self, forKey: .vote_count)

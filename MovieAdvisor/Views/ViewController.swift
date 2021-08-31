@@ -99,7 +99,7 @@ extension ViewController: UITableViewDataSource {
             cell.textLabel?.text = tvies[indexPath.row].name
             return cell
         case 1:
-            cell.textLabel?.text = movies[indexPath.row].title
+            cell.textLabel?.text = movies[indexPath.row].name
             return cell
         default:
             return UITableViewCell()
@@ -138,7 +138,7 @@ extension ViewController: UITableViewDelegate {
                 
                 self.navigationController?.pushViewController(detailViewController, animated: true)
             }
-        
+            
         default:
             let TVidentifier = String(describing: TVDetailsViewController.self)
             
@@ -150,12 +150,6 @@ extension ViewController: UITableViewDelegate {
         }
         
     }
-    
-    //MARK:- Saving
-    //MARK:- Saving
-    //MARK:- Saving
-    //MARK:- Saving
-    
     
     
 }

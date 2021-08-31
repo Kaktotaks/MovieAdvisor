@@ -110,9 +110,9 @@
 			isa = PBXGroup;
 			children = (
 				E44B897C26C6678F008ED8FC /* ViewController.swift */,
+				E44B899526C66AE5008ED8FC /* WatchLaterViewController.swift */,
 				E44B899326C66AC0008ED8FC /* TVDetailsViewController.swift */,
 				E4CB063926DD14000020DA48 /* MovieDetailsViewController.swift */,
-				E44B899526C66AE5008ED8FC /* WatchLaterViewController.swift */,
 				E44B899726C66B12008ED8FC /* Cells */,
 			);
 			path = Views;

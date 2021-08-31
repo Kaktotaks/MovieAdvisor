@@ -57,7 +57,7 @@ class MovieDetailsViewController: UIViewController {
         super.viewWillAppear(animated)
         
         
-        self.title = self.movie?.title
+        self.title = self.movie?.name
         self.descriptionLabel.text = self.movie?.overview
         self.filmLanguageLabel.text = self.movie?.original_language
         self.firstAirDateLabel.text = self.movie?.release_date
@@ -73,7 +73,7 @@ class MovieDetailsViewController: UIViewController {
 
         }
         
-        self.title = self.movie?.title
+        self.title = self.movie?.name
   
         let logoutBarButtonItem = UIBarButtonItem(title: "+", style: .done, target: self, action: #selector(addToWatchLaterButtonPressed))
         self.navigationItem.rightBarButtonItem  = logoutBarButtonItem
@@ -84,7 +84,7 @@ class MovieDetailsViewController: UIViewController {
     
     @IBAction func addToWatchLaterButtonPressed(_ sender: Any) {
         let movieRealm = MovieRealm()
-        movieRealm.name = self.movie?.title ?? ""
+        movieRealm.name = self.movie?.name ?? ""
         movieRealm.popularity = self.movie?.popularity ?? 0.0
         movieRealm.overview = self.movie?.overview ?? ""
         movieRealm.id = self.movie?.id ?? 0
