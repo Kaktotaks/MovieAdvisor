@@ -7,27 +7,11 @@
 
 import UIKit
 import RealmSwift
-import SWTableViewCell
 
 class WatchLaterViewController: UIViewController {
     
     var tvs: [TVRealm] = []
     var movies: [MovieRealm] = []
-    
-    var lub: NSMutableArray = []
-    var rub: NSMutableArray = []
-
-    func fillArrays() {
-        let _rub = NSMutableArray()
-        _rub.sw_addUtilityButton(with: .red, title: "Red")
-        _rub.sw_addUtilityButton(with: .orange, title: "Orange")
-        rub = _rub
-
-        let _lub = NSMutableArray()
-        _lub.sw_addUtilityButton(with: .green, title: "Green")
-        _lub.sw_addUtilityButton(with: .blue, title: "Blue")
-        lub = _lub
-    }
     
     
     let realm = try? Realm()
@@ -73,7 +57,7 @@ class WatchLaterViewController: UIViewController {
     
 }
 
-extension WatchLaterViewController:UITableViewDataSource {
+extension WatchLaterViewController: UITableViewDataSource {
     
     @IBAction func TMWLSegmentedControlChanged(_ sender: Any) {
         self.tableView.reloadData()
@@ -94,11 +78,7 @@ extension WatchLaterViewController:UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath ) as! SWTableViewCell
-        
-        fillArrays()
-        cell.leftUtilityButtons = lub as! [Any]
-        cell.rightUtilityButtons = rub as! [Any]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath )
                 
         
         
@@ -115,10 +95,44 @@ extension WatchLaterViewController:UITableViewDataSource {
                 return UITableViewCell()
             }
     }
-    
-    
+            // Добавил в UITableViewDataSource
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            tableView.beginUpdates()
+            
+            tvs.remove(at: indexPath.row)
+            movies.remove(at: indexPath.row)
+            
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            
+            tableView.endUpdates()
+        }
+    }
     
 }
+
+extension WatchLaterViewController: UITableViewDelegate {
+    // Добавил в UITableViewDelegate
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .delete
+    }
+    
+    //Appearing cells animation
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
+    {
+        let rotationTransform = CATransform3DTranslate(CATransform3DIdentity, 0, 50, 0)
+        cell.layer.transform = rotationTransform
+        cell.alpha = 0
+        UIView.animate(withDuration: 0.75) {
+            cell.layer.transform = CATransform3DIdentity
+            cell.alpha = 1.0
+        }
+    }
+    
+}
+
+
+
 
 
 // MARK: - Savig
