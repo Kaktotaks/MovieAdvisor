@@ -8,12 +8,14 @@ PODS:
   - SDWebImage (5.11.1):
     - SDWebImage/Core (= 5.11.1)
   - SDWebImage/Core (5.11.1)
+  - SWTableViewCell (0.3.7)
   - youtube-ios-player-helper (1.0.3)
 
 DEPENDENCIES:
   - Alamofire
   - RealmSwift
   - SDWebImage
+  - SWTableViewCell
   - youtube-ios-player-helper
 
 SPEC REPOS:
@@ -22,6 +24,7 @@ SPEC REPOS:
     - Realm
     - RealmSwift
     - SDWebImage
+    - SWTableViewCell
     - youtube-ios-player-helper
 
 SPEC CHECKSUMS:
@@ -29,8 +32,9 @@ SPEC CHECKSUMS:
   Realm: 32488213acb44660539c619d620cec1bac046166
   RealmSwift: 0abdca6231d5ff8a4f84cef9c1121ef95a483faf
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
+  SWTableViewCell: 2a94aadc9d47b2b611fa064566bf57948b95b579
   youtube-ios-player-helper: 0185c57db23c80d63d6ca11251d110abb8a4ca61
 
-PODFILE CHECKSUM: 2592d65fd120a9fbc8c3eef3b8da6baf878f3e27
+PODFILE CHECKSUM: 9ecba63e2799fb1fe28de4808e65ebb57aadbb5e
 
 COCOAPODS: 1.10.1

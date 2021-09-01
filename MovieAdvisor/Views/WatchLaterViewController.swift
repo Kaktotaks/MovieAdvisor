@@ -7,11 +7,28 @@
 
 import UIKit
 import RealmSwift
+import SWTableViewCell
 
 class WatchLaterViewController: UIViewController {
     
     var tvs: [TVRealm] = []
     var movies: [MovieRealm] = []
+    
+    var lub: NSMutableArray = []
+    var rub: NSMutableArray = []
+
+    func fillArrays() {
+        let _rub = NSMutableArray()
+        _rub.sw_addUtilityButton(with: .red, title: "Red")
+        _rub.sw_addUtilityButton(with: .orange, title: "Orange")
+        rub = _rub
+
+        let _lub = NSMutableArray()
+        _lub.sw_addUtilityButton(with: .green, title: "Green")
+        _lub.sw_addUtilityButton(with: .blue, title: "Blue")
+        lub = _lub
+    }
+    
     
     let realm = try? Realm()
     
@@ -77,7 +94,14 @@ extension WatchLaterViewController:UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath )
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath ) as! SWTableViewCell
+        
+        fillArrays()
+        cell.leftUtilityButtons = lub as! [Any]
+        cell.rightUtilityButtons = rub as! [Any]
+                
+        
+        
         let selectedIndex = self.TMWLSegmentedControl.selectedSegmentIndex
         
         switch selectedIndex {
@@ -93,4 +117,10 @@ extension WatchLaterViewController:UITableViewDataSource {
     }
     
     
+    
 }
+
+
+// MARK: - Savig
+// MARK: - Savig
+// MARK: - Savig
