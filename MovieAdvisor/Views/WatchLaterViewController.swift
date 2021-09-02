@@ -7,11 +7,17 @@
 
 import UIKit
 import RealmSwift
+import Alamofire
 
 class WatchLaterViewController: UIViewController {
     
-    var tvs: [TVRealm] = []
-    var movies: [MovieRealm] = []
+    //Realm properties
+    var tvsRealm: [TVRealm] = []
+    var movieRealm: [MovieRealm] = []
+    
+    //DB properties
+    var tvies: [TV] = []
+    var movies: [Movie] = []
     
     
     let realm = try? Realm()
@@ -28,8 +34,8 @@ class WatchLaterViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.tvs = self.getTVs()
-        self.movies = self.getMovies()
+        self.tvsRealm = self.getTVs()
+        self.movieRealm = self.getMovies()
         self.tableView.reloadData()
     }
     
@@ -67,9 +73,9 @@ extension WatchLaterViewController: UITableViewDataSource {
         switch selectedIndex
         {
         case 0:
-            return tvs.count
+            return tvsRealm.count
         case 1:
-            return movies.count
+            return movieRealm.count
         default:
             return 0
         }
@@ -85,10 +91,10 @@ extension WatchLaterViewController: UITableViewDataSource {
         
         switch selectedIndex {
             case 0:
-                cell.textLabel?.text = tvs[indexPath.row].name
+                cell.textLabel?.text = tvsRealm[indexPath.row].name
                 return cell
             case 1:
-                cell.textLabel?.text = movies[indexPath.row].name
+                cell.textLabel?.text = movieRealm[indexPath.row].name
                 return cell
             default:
                 return UITableViewCell()
@@ -99,15 +105,15 @@ extension WatchLaterViewController: UITableViewDataSource {
         if editingStyle == .delete {
             tableView.beginUpdates()
             
-            tvs.remove(at: indexPath.row)
-            movies.remove(at: indexPath.row)
+            tvsRealm.remove(at: indexPath.row)
+            movieRealm.remove(at: indexPath.row)
             
             tableView.deleteRows(at: [indexPath], with: .fade)
             
             tableView.endUpdates()
             
-            self.deleteTV(objectID: self.tvs[indexPath.row].id)
-            self.deleteMovie(objectID: self.movies[indexPath.row].id)
+            self.deleteTV(objectID: self.tvsRealm[indexPath.row].id)
+            self.deleteMovie(objectID: self.movieRealm[indexPath.row].id)
             
         }
     }
@@ -162,6 +168,44 @@ extension WatchLaterViewController: UITableViewDelegate {
             cell.alpha = 1.0
         }
     }
+    
+    //Переход на DetailViewControllers
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        
+//        let selectedIndex = self.TMWLSegmentedControl.selectedSegmentIndex
+//        
+//        switch selectedIndex {
+//        case 0:
+//            let TVidentifier = String(describing: TVDetailsViewController.self)
+//            
+//            if let detailViewController = storyboard.instantiateViewController(identifier: TVidentifier) as? TVDetailsViewController {
+//                detailViewController.tv = self.tvies[indexPath.row]
+//                
+//                self.navigationController?.pushViewController(detailViewController, animated: true)
+//            }
+//        case 1:
+//            let movieidentifier = String(describing: MovieDetailsViewController.self)
+//            
+//            if let detailViewController = storyboard.instantiateViewController(identifier: movieidentifier) as? MovieDetailsViewController {
+//                detailViewController.movie = self.movies[indexPath.row]
+//                
+//                self.navigationController?.pushViewController(detailViewController, animated: true)
+//            }
+//            
+//        default:
+//            let TVidentifier = String(describing: TVDetailsViewController.self)
+//            
+//            if let detailViewController = storyboard.instantiateViewController(identifier: TVidentifier) as? TVDetailsViewController {
+//                detailViewController.tv = self.tvies[indexPath.row]
+//                
+//                self.navigationController?.pushViewController(detailViewController, animated: true)
+//            }
+//        }
+//        
+//    }
+
     
 }
 
