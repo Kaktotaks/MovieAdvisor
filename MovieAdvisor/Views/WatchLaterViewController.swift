@@ -54,7 +54,6 @@ class WatchLaterViewController: UIViewController {
         return movies
     }
     
-    
 }
 
 extension WatchLaterViewController: UITableViewDataSource {
@@ -106,8 +105,41 @@ extension WatchLaterViewController: UITableViewDataSource {
             tableView.deleteRows(at: [indexPath], with: .fade)
             
             tableView.endUpdates()
+            
+            self.deleteTV(objectID: self.tvs[indexPath.row].id)
+            self.deleteMovie(objectID: self.movies[indexPath.row].id)
+            
         }
     }
+    
+    func deleteTV(objectID: Int) {
+        let object = realm?.objects(TVRealm.self).filter("id = %@", objectID).first
+        realm?.delete(object!)
+    }
+    
+    func deleteMovie(objectID: Int) {
+        let object = realm?.objects(MovieRealm.self).filter("id = %@", objectID).first
+        realm?.delete(object!)
+    }
+    
+    
+    
+//    func realmDeleteTV(id: String) {
+//
+//            do {
+//                let realm = try Realm()
+//
+//                let object = realm.objects(TVRealm.self).filter("id = %@", id).first
+//
+//                try! realm.write {
+//                    if let obj = object {
+//                        realm.delete(obj)
+//                    }
+//                }
+//            } catch let error as NSError {
+//                print("error - \(error.localizedDescription)")
+//            }
+//        }
     
 }
 
@@ -115,6 +147,8 @@ extension WatchLaterViewController: UITableViewDelegate {
     // Добавил в UITableViewDelegate
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         return .delete
+        
+        
     }
     
     //Appearing cells animation
