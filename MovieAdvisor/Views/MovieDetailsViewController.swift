@@ -93,24 +93,21 @@ class MovieDetailsViewController: UIViewController {
 
         try? realm?.write {
             realm?.add(movieRealm)
-            
-            showAlert()
         }
         
-        func showAlert() {
-            let alert = UIAlertController(title: "Movie saved !", message: nil, preferredStyle: .alert)
-            
-            alert.addAction(UIAlertAction(title: "Cool 👌", style: .cancel, handler: { action in
-                print("Tapped Cool 👌")
-            }))
-            
-            present(alert, animated: true)
-        }
+        self.showAlert()
     }
     
     
-    
-    
+    func showAlert() {
+        let alert = UIAlertController(title: "Movie saved !", message: nil, preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Cool 👌", style: .cancel, handler: { action in
+            print("Tapped Cool 👌")
+        }))
+        
+        present(alert, animated: true)
+    }
     
     
 }
