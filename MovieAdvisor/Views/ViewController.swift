@@ -39,7 +39,7 @@ class ViewController: UIViewController {
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         
         
-        self.title = "TVs/Movies"
+        self.title = "Movie Advisor"
         self.navigationController?.navigationBar.prefersLargeTitles = false
     }
     

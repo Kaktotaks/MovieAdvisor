@@ -79,9 +79,8 @@ class TVDetailsViewController: UIViewController {
         self.title = self.tv?.name
   
         let logoutBarButtonItem = UIBarButtonItem(title: "+", style: .done, target: self, action: #selector(addToWatchLaterButtonPressed))
+
         self.navigationItem.rightBarButtonItem  = logoutBarButtonItem
-        
-        
         
     }
     
@@ -98,8 +97,19 @@ class TVDetailsViewController: UIViewController {
         try? realm?.write {
             realm?.add(tvRealm)
         }
+        self.showAlert()
     }
     
+    
+    func showAlert() {
+        let alert = UIAlertController(title: "TV Show saved !", message: nil, preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Cool 👌", style: .cancel, handler: { action in
+            print("Tapped Cool 👌")
+        }))
+        
+        present(alert, animated: true)
+    }
 }
 
 

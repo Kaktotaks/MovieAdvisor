@@ -51,5 +51,15 @@ struct Movie : Codable {
 		vote_average = try values.decodeIfPresent(Double.self, forKey: .vote_average)
 		vote_count = try values.decodeIfPresent(Int.self, forKey: .vote_count)
 	}
+    
+    
+//    init(from movieRealm: MovieRealm) {
+//        self.name = movieRealm.name
+//        self.popularity = movieRealm.popularity
+//        self.overview = movieRealm.overview
+//        self.id = movieRealm.id
+//        self.backdrop_path = movieRealm.backdrop_path
+//        self.poster_path = movieRealm.posterPath
+//    }
 
 }

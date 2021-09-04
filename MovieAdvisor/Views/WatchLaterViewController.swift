@@ -109,13 +109,10 @@ extension WatchLaterViewController: UITableViewDataSource {
         if editingStyle == .delete {
             switch selectedIndex {
             case 0:
-//                tvsRealm.remove(at: indexPath.row)
+
                 self.deleteTV(objectID: self.tvsRealm[indexPath.row].id)
                 self.tvsRealm = self.getTVs()
-//                tableView.beginUpdates()
-//                tableView.endUpdates()
             case 1:
-//                movieRealm.remove(at: indexPath.row)
                 self.deleteMovie(objectID: self.movieRealm[indexPath.row].id)
                 self.movieRealm = self.getMovies()
 
@@ -140,8 +137,8 @@ extension WatchLaterViewController: UITableViewDataSource {
             realm?.delete(object!)
         }
     }
-    
 }
+    
 
 extension WatchLaterViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
