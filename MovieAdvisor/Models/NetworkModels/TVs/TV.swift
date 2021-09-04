@@ -1,20 +1,20 @@
 import Foundation
 
 struct TV: Codable {
-	let name : String?
-	let first_air_date : String?
-	let genre_ids : [Int]?
-	let original_language : String?
-	let vote_count : Int?
-	let posterPath : String?
-	let id : Int?
-	let overview : String?
-	let vote_average : Double?
-	let original_name : String?
-	let origin_country : [String]?
-	let backdrop_path : String?
-	let popularity : Double?
-	let media_type : String?
+	var name : String?
+    var first_air_date : String?
+    var genre_ids : [Int]?
+    var original_language : String?
+    var vote_count : Int?
+    var posterPath : String?
+    var id : Int?
+    var overview : String?
+    var vote_average : Double?
+    var original_name : String?
+    var origin_country : [String]?
+    var backdrop_path : String?
+    var popularity : Double?
+    var media_type : String?
 
 	enum CodingKeys: String, CodingKey {
 
@@ -52,5 +52,15 @@ struct TV: Codable {
 		media_type = try values.decodeIfPresent(String.self, forKey: .media_type)
 	}
 
+    init(from movieRealm: TVRealm) {
+//        self.title = movieRealm.title
+        self.popularity = movieRealm.popularity
+        self.overview = movieRealm.overview
+        self.id = movieRealm.id
+//        self.backdropPath = movieRealm.backdropPath
+//        self.mediaType = movieRealm.mediaType
+        self.posterPath = movieRealm.posterPath
+    }
+    
 }
 //!

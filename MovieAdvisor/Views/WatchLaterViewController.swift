@@ -22,6 +22,8 @@ class WatchLaterViewController: UIViewController {
     
     let realm = try? Realm()
     
+    
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var TMWLSegmentedControl: UISegmentedControl!
     
@@ -84,73 +86,64 @@ extension WatchLaterViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath )
-                
+        
         
         
         let selectedIndex = self.TMWLSegmentedControl.selectedSegmentIndex
         
         switch selectedIndex {
-            case 0:
-                cell.textLabel?.text = tvsRealm[indexPath.row].name
-                return cell
-            case 1:
-                cell.textLabel?.text = movieRealm[indexPath.row].name
-                return cell
-            default:
-                return UITableViewCell()
-            }
+        case 0:
+            cell.textLabel?.text = tvsRealm[indexPath.row].name
+            return cell
+        case 1:
+            cell.textLabel?.text = movieRealm[indexPath.row].name
+            return cell
+        default:
+            return UITableViewCell()
+        }
     }
-            // Добавил в UITableViewDataSource
+    // Добавил в UITableViewDataSource
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        let selectedIndex = self.TMWLSegmentedControl.selectedSegmentIndex
         if editingStyle == .delete {
-            tableView.beginUpdates()
-            
-            tvsRealm.remove(at: indexPath.row)
-            movieRealm.remove(at: indexPath.row)
-            
-            tableView.deleteRows(at: [indexPath], with: .fade)
-            
-            tableView.endUpdates()
-            
-            self.deleteTV(objectID: self.tvsRealm[indexPath.row].id)
-            self.deleteMovie(objectID: self.movieRealm[indexPath.row].id)
+            switch selectedIndex {
+            case 0:
+//                tvsRealm.remove(at: indexPath.row)
+                self.deleteTV(objectID: self.tvsRealm[indexPath.row].id)
+                self.tvsRealm = self.getTVs()
+//                tableView.beginUpdates()
+//                tableView.endUpdates()
+            case 1:
+//                movieRealm.remove(at: indexPath.row)
+                self.deleteMovie(objectID: self.movieRealm[indexPath.row].id)
+                self.movieRealm = self.getMovies()
+
+            default: break
+            }
             
         }
+        tableView.beginUpdates()
+        tableView.endUpdates()
     }
     
     func deleteTV(objectID: Int) {
         let object = realm?.objects(TVRealm.self).filter("id = %@", objectID).first
-        realm?.delete(object!)
+        try! realm!.write {
+            realm?.delete(object!)
+        }
     }
     
     func deleteMovie(objectID: Int) {
         let object = realm?.objects(MovieRealm.self).filter("id = %@", objectID).first
-        realm?.delete(object!)
+        try! realm!.write {
+            realm?.delete(object!)
+        }
     }
-    
-    
-    
-//    func realmDeleteTV(id: String) {
-//
-//            do {
-//                let realm = try Realm()
-//
-//                let object = realm.objects(TVRealm.self).filter("id = %@", id).first
-//
-//                try! realm.write {
-//                    if let obj = object {
-//                        realm.delete(obj)
-//                    }
-//                }
-//            } catch let error as NSError {
-//                print("error - \(error.localizedDescription)")
-//            }
-//        }
     
 }
 
 extension WatchLaterViewController: UITableViewDelegate {
-    // Добавил в UITableViewDelegate
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         return .delete
         
@@ -169,45 +162,26 @@ extension WatchLaterViewController: UITableViewDelegate {
         }
     }
     
-    //Переход на DetailViewControllers
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        
-//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//        
-//        let selectedIndex = self.TMWLSegmentedControl.selectedSegmentIndex
-//        
-//        switch selectedIndex {
-//        case 0:
-//            let TVidentifier = String(describing: TVDetailsViewController.self)
-//            
-//            if let detailViewController = storyboard.instantiateViewController(identifier: TVidentifier) as? TVDetailsViewController {
-//                detailViewController.tv = self.tvies[indexPath.row]
-//                
-//                self.navigationController?.pushViewController(detailViewController, animated: true)
-//            }
-//        case 1:
-//            let movieidentifier = String(describing: MovieDetailsViewController.self)
-//            
-//            if let detailViewController = storyboard.instantiateViewController(identifier: movieidentifier) as? MovieDetailsViewController {
-//                detailViewController.movie = self.movies[indexPath.row]
-//                
-//                self.navigationController?.pushViewController(detailViewController, animated: true)
-//            }
-//            
-//        default:
-//            let TVidentifier = String(describing: TVDetailsViewController.self)
-//            
-//            if let detailViewController = storyboard.instantiateViewController(identifier: TVidentifier) as? TVDetailsViewController {
-//                detailViewController.tv = self.tvies[indexPath.row]
-//                
-//                self.navigationController?.pushViewController(detailViewController, animated: true)
-//            }
-//        }
-//        
-//    }
-
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let object = self.TMWLSegmentedControl
+        let selectedIndex = self.TMWLSegmentedControl.selectedSegmentIndex
+        switch selectedIndex
+        {
+        case 0:
+            let tvObject = self.tvsRealm[indexPath.row]
+            let tvCodableObject = TV(from: tvObject)
+            // push wievcontrollers
+        case 1:
+            let tvObject = self.tvsRealm[indexPath.row]
+            let tvCodableObject = TV(from: tvObject)
+        default:
+            return
+        }
+    }
 }
+
+//MARK: - Переход на DetailViewControllers ?
+
 
 
 

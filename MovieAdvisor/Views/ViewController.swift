@@ -14,6 +14,8 @@ class ViewController: UIViewController {
     var tvies: [TV] = []
     var movies: [Movie] = []
     
+    
+    
     let realm = try? Realm()
     
     @IBOutlet weak var tableView: UITableView!
@@ -21,6 +23,18 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    
+//        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "MovieTableViewCell")
+//        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "TVTableViewCell")
+        let tvTableViewCellIdentifier = String(describing: TVTableViewCell.self)
+        self.tableView.register(UINib(nibName: tvTableViewCellIdentifier, bundle: nil),
+                                 forCellReuseIdentifier: tvTableViewCellIdentifier)
+        
+        let movieTableViewCellIdentifier = String(describing: MovieTableViewCell.self)
+        self.tableView.register(UINib(nibName: movieTableViewCellIdentifier, bundle: nil),
+                                 forCellReuseIdentifier: movieTableViewCellIdentifier)
+        
+        
         
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         
@@ -92,18 +106,37 @@ extension ViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         let selectedIndex = self.TVMovieSegmentedControl.selectedSegmentIndex
         switch selectedIndex {
         case 0:
-            cell.textLabel?.text = tvies[indexPath.row].name
-            return cell
+            let tvCell = tableView.dequeueReusableCell(withIdentifier: "TVTableViewCell", for: indexPath) as! TVTableViewCell
+            
+            // UI for TVies
+            let tvMedia = self.tvies[indexPath.row]
+            let tvImagePathString = Constants.network.defaultImagePath + tvMedia.posterPath!
+            tvCell.tvConfigureWith(imageURL: URL(string: tvImagePathString),
+                                   TVName: tvMedia.name,
+                                   desriptionText: tvMedia.overview)
+            
+            return tvCell
         case 1:
-            cell.textLabel?.text = movies[indexPath.row].name
-            return cell
+     
+            let movieCell = tableView.dequeueReusableCell(withIdentifier: "MovieTableViewCell", for: indexPath) as! MovieTableViewCell
+
+            // UI for Movies
+            let moviesMedia = self.movies[indexPath.row]
+            let movieImagePathString = Constants.network.defaultImagePath + moviesMedia.poster_path!
+            movieCell.movieConfigureWith(imageURL: URL(string: movieImagePathString),
+                                          movieName: moviesMedia.name,
+                                          desriptionText: moviesMedia.overview)
+            return movieCell
         default:
             return UITableViewCell()
         }
+        
+
+        
+
         
         
     }
@@ -151,6 +184,9 @@ extension ViewController: UITableViewDelegate {
         
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return  460
+    }
     //Appearing cells animation
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
     {
