@@ -120,6 +120,7 @@ extension WatchLaterViewController: UITableViewDataSource {
             }
             
         }
+        tableView.reloadData()
         tableView.beginUpdates()
         tableView.endUpdates()
     }
@@ -160,30 +161,21 @@ extension WatchLaterViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let object = self.TMWLSegmentedControl
-        let selectedIndex = self.TMWLSegmentedControl.selectedSegmentIndex
-        switch selectedIndex
-        {
-        case 0:
-            let tvObject = self.tvsRealm[indexPath.row]
-            let tvCodableObject = TV(from: tvObject)
-            // push wievcontrollers
-        case 1:
-            let tvObject = self.tvsRealm[indexPath.row]
-            let tvCodableObject = TV(from: tvObject)
-        default:
-            return
-        }
+//        let object = self.TMWLSegmentedControl
+//        let selectedIndex = self.TMWLSegmentedControl.selectedSegmentIndex
+//        switch selectedIndex
+//        {
+//        case 0:
+//            let tvObject = self.tvsRealm[indexPath.row]
+//            let tvCodableObject = TV(from: tvObject)
+//            // push wievcontrollers
+//        case 1:
+//            let tvObject = self.tvsRealm[indexPath.row]
+//            let tvCodableObject = TV(from: tvObject)
+//        default:
+//            return
+//        }
     }
 }
 
 //MARK: - Переход на DetailViewControllers ?
-
-
-
-
-
-
-// MARK: - Savig
-// MARK: - Savig
-// MARK: - Savig
