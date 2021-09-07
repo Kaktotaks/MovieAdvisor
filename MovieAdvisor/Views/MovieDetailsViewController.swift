@@ -24,7 +24,6 @@ class MovieDetailsViewController: UIViewController {
     
     let realm = try? Realm()
     
-    let baseImageURL = "https://image.tmdb.org/t/p/w500/"
     
     var movie: Movie? = nil
     
@@ -66,7 +65,7 @@ class MovieDetailsViewController: UIViewController {
         if let posterPath = self.movie?.poster_path {
 
             // Тогда создадим полную ссылку на картинку
-            let urlString = self.baseImageURL + posterPath
+            let urlString = Constants.network.baseImageURL + posterPath
 
             // И с помощью библиотеки SDWebImage задаем posterImageView картинку, загруженную по url
             self.posterImageView.sd_setImage(with: URL(string: urlString), completed: nil)

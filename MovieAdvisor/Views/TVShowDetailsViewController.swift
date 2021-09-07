@@ -24,8 +24,6 @@ class TVShowDetailsViewController: UIViewController {
     
     let realm = try? Realm()
     
-    let baseImageURL = "https://image.tmdb.org/t/p/w500/"
-    
     var tvShow: TVShow? = nil
 
     override func viewDidLoad() {
@@ -69,7 +67,7 @@ class TVShowDetailsViewController: UIViewController {
         if let posterPath = self.tvShow?.posterPath {
 
             // Тогда создадим полную ссылку на картинку
-            let urlString = self.baseImageURL + posterPath
+            let urlString = Constants.network.baseImageURL + posterPath
 
             // И с помощью библиотеки SDWebImage задаем posterImageView картинку, загруженную по url
             self.posterImageView.sd_setImage(with: URL(string: urlString), completed: nil)

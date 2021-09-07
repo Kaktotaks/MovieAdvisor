@@ -12,9 +12,11 @@ struct Constants {
     struct network {
 
         static let apiKey = "242869b42a65c82d7bfdc955a766ce9f"
+        static let baseImageURL = "https://image.tmdb.org/t/p/w500/"
 
         static let defaultImagePath = "https://image.tmdb.org/t/p/original/"
         static let defaultPath = "https://api.themoviedb.org/3/"
+        
     }
     
     struct viewControllerTitles {
