@@ -24,8 +24,6 @@ class MovieDetailsViewController: UIViewController {
     
     let realm = try? Realm()
     
-    let baseImageURL = "https://image.tmdb.org/t/p/w500/"
-    
     var movie: Movie? = nil
     
     override func viewDidLoad() {
@@ -59,14 +57,14 @@ class MovieDetailsViewController: UIViewController {
         
         self.title = self.movie?.name
         self.descriptionLabel.text = self.movie?.overview
-        self.filmLanguageLabel.text = self.movie?.original_language
-        self.firstAirDateLabel.text = self.movie?.release_date
-        self.voteAverageLabel.text = String(describing:self.movie!.vote_average!)
+        self.filmLanguageLabel.text = self.movie?.originalLanguage
+        self.firstAirDateLabel.text = self.movie?.releaseDate
+        self.voteAverageLabel.text = String(describing:self.movie!.voteAverage!)
         
-        if let posterPath = self.movie?.poster_path {
+        if let posterPath = self.movie?.posterPath {
 
             // Тогда создадим полную ссылку на картинку
-            let urlString = self.baseImageURL + posterPath
+            let urlString = Constants.network.baseImageURL + posterPath
 
             // И с помощью библиотеки SDWebImage задаем posterImageView картинку, загруженную по url
             self.posterImageView.sd_setImage(with: URL(string: urlString), completed: nil)
@@ -88,8 +86,8 @@ class MovieDetailsViewController: UIViewController {
         movieRealm.popularity = self.movie?.popularity ?? 0.0
         movieRealm.overview = self.movie?.overview ?? ""
         movieRealm.id = self.movie?.id ?? 0
-        movieRealm.backdrop_path = self.movie?.backdrop_path ?? ""
-        movieRealm.posterPath = self.movie?.poster_path ?? ""
+        movieRealm.backdropPath = self.movie?.backdropPath ?? ""
+        movieRealm.posterPath = self.movie?.posterPath ?? ""
 
         try? realm?.write {
             realm?.add(movieRealm)
@@ -100,10 +98,10 @@ class MovieDetailsViewController: UIViewController {
     
     
     func showAlert() {
-        let alert = UIAlertController(title: "Movie saved !", message: nil, preferredStyle: .alert)
+        let alert = UIAlertController(title: Constants.ui.movieSavedMessage, message: nil, preferredStyle: .alert)
         
-        alert.addAction(UIAlertAction(title: "Cool 👌", style: .cancel, handler: { action in
-            print("Tapped Cool 👌")
+        alert.addAction(UIAlertAction(title: Constants.ui.okMessage, style: .cancel, handler: { action in
+            print("Tapped \(Constants.ui.okMessage)")
         }))
         
         present(alert, animated: true)

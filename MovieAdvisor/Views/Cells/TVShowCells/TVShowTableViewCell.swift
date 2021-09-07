@@ -8,7 +8,7 @@
 import UIKit
 import SDWebImage
 
-class TVTableViewCell: UITableViewCell {
+class TVShowTableViewCell: UITableViewCell {
     
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var posterImageView: UIImageView!

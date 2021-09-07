@@ -12,7 +12,7 @@ import youtube_ios_player_helper
 import Alamofire
 
 
-class TVDetailsViewController: UIViewController {
+class TVShowDetailsViewController: UIViewController {
     
     
     @IBOutlet weak var posterImageView: UIImageView!
@@ -24,15 +24,13 @@ class TVDetailsViewController: UIViewController {
     
     let realm = try? Realm()
     
-    let baseImageURL = "https://image.tmdb.org/t/p/w500/"
-    
-    var tv: TV? = nil
+    var tvShow: TVShow? = nil
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         
-        if let id = self.tv?.id {
+        if let id = self.tvShow?.id {
             let stringID = String(describing: id)
             self.requestVideos(with: stringID)
         }
@@ -60,23 +58,23 @@ class TVDetailsViewController: UIViewController {
         super.viewWillAppear(animated)
         
         
-        self.title = self.tv?.name
-        self.descriptionLabel.text = self.tv?.overview
-        self.filmLanguageLabel.text = self.tv?.original_language
-        self.firstAirDateLabel.text = self.tv?.first_air_date
-        self.voteAverageLabel.text = String(describing:self.tv!.vote_average!)
+        self.title = self.tvShow?.name
+        self.descriptionLabel.text = self.tvShow?.overview
+        self.filmLanguageLabel.text = self.tvShow?.originalLanguage
+        self.firstAirDateLabel.text = self.tvShow?.firstAirDate
+        self.voteAverageLabel.text = String(describing:self.tvShow!.voteAverage!)
         
-        if let posterPath = self.tv?.posterPath {
+        if let posterPath = self.tvShow?.posterPath {
 
             // Тогда создадим полную ссылку на картинку
-            let urlString = self.baseImageURL + posterPath
+            let urlString = Constants.network.baseImageURL + posterPath
 
             // И с помощью библиотеки SDWebImage задаем posterImageView картинку, загруженную по url
             self.posterImageView.sd_setImage(with: URL(string: urlString), completed: nil)
 
         }
         
-        self.title = self.tv?.name
+        self.title = self.tvShow?.name
   
         let logoutBarButtonItem = UIBarButtonItem(title: "+", style: .done, target: self, action: #selector(addToWatchLaterButtonPressed))
 
@@ -85,14 +83,14 @@ class TVDetailsViewController: UIViewController {
     }
     
     @IBAction func addToWatchLaterButtonPressed(_ sender: Any) {
-        let tvRealm = TVRealm()
-        tvRealm.name = self.tv?.name ?? ""
-        tvRealm.popularity = self.tv?.popularity ?? 0.0
-        tvRealm.overview = self.tv?.overview ?? ""
-        tvRealm.id = self.tv?.id ?? 0
-        tvRealm.backdrop_path = self.tv?.backdrop_path ?? ""
-        tvRealm.media_type = self.tv?.media_type ?? ""
-        tvRealm.posterPath = self.tv?.posterPath ?? ""
+        let tvRealm = TVShowsRealm()
+        tvRealm.name = self.tvShow?.name ?? ""
+        tvRealm.popularity = self.tvShow?.popularity ?? 0.0
+        tvRealm.overview = self.tvShow?.overview ?? ""
+        tvRealm.id = self.tvShow?.id ?? 0
+        tvRealm.backdropPath = self.tvShow?.backdropPath ?? ""
+        tvRealm.mediaType = self.tvShow?.mediaType ?? ""
+        tvRealm.posterPath = self.tvShow?.posterPath ?? ""
 
         try? realm?.write {
             realm?.add(tvRealm)
@@ -102,10 +100,10 @@ class TVDetailsViewController: UIViewController {
     
     
     func showAlert() {
-        let alert = UIAlertController(title: "TV Show saved !", message: nil, preferredStyle: .alert)
+        let alert = UIAlertController(title: Constants.ui.tvShowSavedMessage, message: nil, preferredStyle: .alert)
         
-        alert.addAction(UIAlertAction(title: "Cool 👌", style: .cancel, handler: { action in
-            print("Tapped Cool 👌")
+        alert.addAction(UIAlertAction(title: Constants.ui.okMessage, style: .cancel, handler: { action in
+            print("Tapped \(Constants.ui.okMessage)")
         }))
         
         present(alert, animated: true)

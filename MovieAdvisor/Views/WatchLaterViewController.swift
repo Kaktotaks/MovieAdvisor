@@ -12,12 +12,12 @@ import Alamofire
 class WatchLaterViewController: UIViewController {
     
     //Realm properties
-    var tvsRealm: [TVRealm] = []
+    var tvShowsRealm: [TVShowsRealm] = []
     var movieRealm: [MovieRealm] = []
     
-    //DB properties
-    var tvies: [TV] = []
-    var movies: [Movie] = []
+//    //DB properties
+//    var tvShows: [TVShow] = []
+//    var movies: [Movie] = []
     
     
     let realm = try? Realm()
@@ -30,26 +30,26 @@ class WatchLaterViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: Constants.ui.defaultCellIdentifier)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.tvsRealm = self.getTVs()
+        self.tvShowsRealm = self.getTVShows()
         self.movieRealm = self.getMovies()
         self.tableView.reloadData()
     }
     
     //MARK: -
-    private func getTVs() -> [TVRealm] {
+    private func getTVShows() -> [TVShowsRealm] {
         
-        var TVs = [TVRealm]()
-        guard let TVsResults = realm?.objects(TVRealm.self) else { return [] }
-        for tv in TVsResults {
-            TVs.append(tv)
+        var TVShows = [TVShowsRealm]()
+        guard let TVShowsResults = realm?.objects(TVShowsRealm.self) else { return [] }
+        for tvShow in TVShowsResults {
+            TVShows.append(tvShow)
         }
-        return TVs
+        return TVShows
     }
     //MARK: -
     private func getMovies() -> [MovieRealm] {
@@ -75,7 +75,7 @@ extension WatchLaterViewController: UITableViewDataSource {
         switch selectedIndex
         {
         case 0:
-            return tvsRealm.count
+            return tvShowsRealm.count
         case 1:
             return movieRealm.count
         default:
@@ -85,15 +85,13 @@ extension WatchLaterViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath )
-        
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.ui.defaultCellIdentifier, for: indexPath )
         
         let selectedIndex = self.TMWLSegmentedControl.selectedSegmentIndex
         
         switch selectedIndex {
         case 0:
-            cell.textLabel?.text = tvsRealm[indexPath.row].name
+            cell.textLabel?.text = tvShowsRealm[indexPath.row].name
             return cell
         case 1:
             cell.textLabel?.text = movieRealm[indexPath.row].name
@@ -110,8 +108,8 @@ extension WatchLaterViewController: UITableViewDataSource {
             switch selectedIndex {
             case 0:
 
-                self.deleteTV(objectID: self.tvsRealm[indexPath.row].id)
-                self.tvsRealm = self.getTVs()
+                self.deleteTVShows(objectID: self.tvShowsRealm[indexPath.row].id)
+                self.tvShowsRealm = self.getTVShows()
             case 1:
                 self.deleteMovie(objectID: self.movieRealm[indexPath.row].id)
                 self.movieRealm = self.getMovies()
@@ -125,8 +123,8 @@ extension WatchLaterViewController: UITableViewDataSource {
         tableView.endUpdates()
     }
     
-    func deleteTV(objectID: Int) {
-        let object = realm?.objects(TVRealm.self).filter("id = %@", objectID).first
+    func deleteTVShows(objectID: Int) {
+        let object = realm?.objects(TVShowsRealm.self).filter("id = %@", objectID).first
         try! realm!.write {
             realm?.delete(object!)
         }

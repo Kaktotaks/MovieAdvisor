@@ -9,9 +9,9 @@ import UIKit
 import Alamofire
 import RealmSwift
 
-class ViewController: UIViewController {
+class MediaViewController: UIViewController {
     
-    var tvies: [TV] = []
+    var tvShows: [TVShow] = []
     var movies: [Movie] = []
     
     
@@ -23,10 +23,8 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
-//        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "MovieTableViewCell")
-//        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "TVTableViewCell")
-        let tvTableViewCellIdentifier = String(describing: TVTableViewCell.self)
+        
+        let tvTableViewCellIdentifier = String(describing: TVShowTableViewCell.self)
         self.tableView.register(UINib(nibName: tvTableViewCellIdentifier, bundle: nil),
                                  forCellReuseIdentifier: tvTableViewCellIdentifier)
         
@@ -36,17 +34,17 @@ class ViewController: UIViewController {
         
         
         
-        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: Constants.ui.defaultCellIdentifier)
         
         
-        self.title = "Movie Advisor"
+        self.title = Constants.viewControllerTitles.media
         self.navigationController?.navigationBar.prefersLargeTitles = false
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.requestTrendingTVies()
+        self.requestTrendingTVShows()
         self.requestTrendingMovies()
         
     }
@@ -54,15 +52,15 @@ class ViewController: UIViewController {
     
     
     //MARK: - Network request for reloading TVs
-    func requestTrendingTVies() {
+    func requestTrendingTVShows() {
         
-        let url = "https://api.themoviedb.org/3/trending/tv/week?api_key=242869b42a65c82d7bfdc955a766ce9f"
+        let url = "https://api.themoviedb.org/3/trending/tv/week?api_key=\(Constants.network.apiKey)"
         AF.request(url).responseJSON { responce in
             
             let decoder = JSONDecoder()
             
-            if let data = try? decoder.decode(PopularTVResult.self, from: responce.data!){
-                self.tvies = data.tvies ?? []
+            if let data = try? decoder.decode(PopularTVShowResult.self, from: responce.data!){
+                self.tvShows = data.tvShows ?? []
                 self.tableView.reloadData()
             }
             
@@ -72,7 +70,7 @@ class ViewController: UIViewController {
     //MARK: - Network request for reloading movies
     func requestTrendingMovies() {
         
-        let url = "https://api.themoviedb.org/3/trending/movie/week?api_key=242869b42a65c82d7bfdc955a766ce9f"
+        let url = "https://api.themoviedb.org/3/trending/movie/week?api_key=\(Constants.network.apiKey)"
         AF.request(url).responseJSON { responce in
             
             let decoder = JSONDecoder()
@@ -89,14 +87,14 @@ class ViewController: UIViewController {
 }
 
 //MARK: - DataSource for tableView
-extension ViewController: UITableViewDataSource {
+extension MediaViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let selectedIndex = self.TVMovieSegmentedControl.selectedSegmentIndex
         switch selectedIndex
         {
         case 0:
-            return tvies.count
+            return tvShows.count
         case 1:
             return movies.count
         default:
@@ -109,23 +107,23 @@ extension ViewController: UITableViewDataSource {
         let selectedIndex = self.TVMovieSegmentedControl.selectedSegmentIndex
         switch selectedIndex {
         case 0:
-            let tvCell = tableView.dequeueReusableCell(withIdentifier: "TVTableViewCell", for: indexPath) as! TVTableViewCell
+            let tvShowCell = tableView.dequeueReusableCell(withIdentifier: "TVShowTableViewCell", for: indexPath) as! TVShowTableViewCell
             
-            // UI for TVies
-            let tvMedia = self.tvies[indexPath.row]
-            let tvImagePathString = Constants.network.defaultImagePath + tvMedia.posterPath!
-            tvCell.tvConfigureWith(imageURL: URL(string: tvImagePathString),
+            // UI for TVShows
+            let tvMedia = self.tvShows[indexPath.row]
+            let tvShowImagePathString = Constants.network.defaultImagePath + tvMedia.posterPath!
+            tvShowCell.tvConfigureWith(imageURL: URL(string: tvShowImagePathString),
                                    TVName: tvMedia.name,
                                    desriptionText: tvMedia.overview)
             
-            return tvCell
+            return tvShowCell
         case 1:
      
             let movieCell = tableView.dequeueReusableCell(withIdentifier: "MovieTableViewCell", for: indexPath) as! MovieTableViewCell
 
             // UI for Movies
             let moviesMedia = self.movies[indexPath.row]
-            let movieImagePathString = Constants.network.defaultImagePath + moviesMedia.poster_path!
+            let movieImagePathString = Constants.network.defaultImagePath + moviesMedia.posterPath!
             movieCell.movieConfigureWith(imageURL: URL(string: movieImagePathString),
                                           movieName: moviesMedia.name,
                                           desriptionText: moviesMedia.overview)
@@ -146,7 +144,7 @@ extension ViewController: UITableViewDataSource {
     }
 }
 //MARK: - Delegate for tableView
-extension ViewController: UITableViewDelegate {
+extension MediaViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
@@ -156,10 +154,10 @@ extension ViewController: UITableViewDelegate {
         
         switch selectedIndex {
         case 0:
-            let TVidentifier = String(describing: TVDetailsViewController.self)
+            let TVidentifier = String(describing: TVShowDetailsViewController.self)
             
-            if let detailViewController = storyboard.instantiateViewController(identifier: TVidentifier) as? TVDetailsViewController {
-                detailViewController.tv = self.tvies[indexPath.row]
+            if let detailViewController = storyboard.instantiateViewController(identifier: TVidentifier) as? TVShowDetailsViewController {
+                detailViewController.tvShow = self.tvShows[indexPath.row]
                 
                 self.navigationController?.pushViewController(detailViewController, animated: true)
             }
@@ -173,10 +171,10 @@ extension ViewController: UITableViewDelegate {
             }
             
         default:
-            let TVidentifier = String(describing: TVDetailsViewController.self)
+            let TVidentifier = String(describing: TVShowDetailsViewController.self)
             
-            if let detailViewController = storyboard.instantiateViewController(identifier: TVidentifier) as? TVDetailsViewController {
-                detailViewController.tv = self.tvies[indexPath.row]
+            if let detailViewController = storyboard.instantiateViewController(identifier: TVidentifier) as? TVShowDetailsViewController {
+                detailViewController.tvShow = self.tvShows[indexPath.row]
                 
                 self.navigationController?.pushViewController(detailViewController, animated: true)
             }
@@ -185,15 +183,48 @@ extension ViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return  460
+        return  540
     }
     //Appearing cells animation
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
     {
-        let rotationTransform = CATransform3DTranslate(CATransform3DIdentity, 0, 50, 0)
-        cell.layer.transform = rotationTransform
-        cell.alpha = 0
-        UIView.animate(withDuration: 0.75) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let selectedIndex = self.TVMovieSegmentedControl.selectedSegmentIndex
+        
+        switch selectedIndex {
+        case 0:
+            let TVidentifier = String(describing: TVShowDetailsViewController.self)
+            
+            if storyboard.instantiateViewController(identifier: TVidentifier) is TVShowDetailsViewController {
+                
+                let rotationTransform = CATransform3DTranslate(CATransform3DIdentity, -500, 50, 0)
+                cell.layer.transform = rotationTransform
+                cell.alpha = 0.5
+                
+            }
+           
+        case 1:
+            let movieidentifier = String(describing: MovieDetailsViewController.self)
+            
+            if storyboard.instantiateViewController(identifier: movieidentifier) is MovieDetailsViewController {
+                let rotationTransform = CATransform3DTranslate(CATransform3DIdentity, +500, 50, 0)
+                cell.layer.transform = rotationTransform
+                cell.alpha = 0.5
+            }
+           
+        default:
+            let TVidentifier = String(describing: TVShowDetailsViewController.self)
+            
+            if storyboard.instantiateViewController(identifier: TVidentifier) is TVShowDetailsViewController {
+                
+                let rotationTransform = CATransform3DTranslate(CATransform3DIdentity, -500, 50, 0)
+                cell.layer.transform = rotationTransform
+                cell.alpha = 0.5
+                
+            }
+        }
+        
+        UIView.animate(withDuration: 0.5) {
             cell.layer.transform = CATransform3DIdentity
             cell.alpha = 1.0
         }
@@ -202,4 +233,3 @@ extension ViewController: UITableViewDelegate {
     
 }
 
-//!

@@ -8,10 +8,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Media View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="MovieAdvisor" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="MediaViewController" customModule="MovieAdvisor" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -77,10 +77,10 @@
             </objects>
             <point key="canvasLocation" x="-1035" y="320"/>
         </scene>
-        <!--Details View Controller-->
+        <!--Show Details View Controller-->
         <scene sceneID="yeU-K2-p0r">
             <objects>
-                <viewController storyboardIdentifier="TVDetailsViewController" id="AAi-Ij-MGI" customClass="TVDetailsViewController" customModule="MovieAdvisor" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TVShowDetailsViewController" id="AAi-Ij-MGI" customClass="TVShowDetailsViewController" customModule="MovieAdvisor" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="TVT-Ht-4d7">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -407,9 +407,9 @@
                                 </connections>
                             </tableView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="6dC-YV-Vxv">
-                                <rect key="frame" x="144.5" y="96" width="125" height="32"/>
+                                <rect key="frame" x="126.5" y="96" width="161" height="32"/>
                                 <segments>
-                                    <segment title="TVs"/>
+                                    <segment title="TV Shows"/>
                                     <segment title="Movies"/>
                                 </segments>
                                 <connections>
