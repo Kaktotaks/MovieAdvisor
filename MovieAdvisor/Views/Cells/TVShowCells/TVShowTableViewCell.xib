@@ -33,10 +33,12 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kQb-tc-VHZ">
-                                        <rect key="frame" x="16" y="128" width="186" height="32.5"/>
+                                        <rect key="frame" x="16" y="126" width="186" height="34.5"/>
                                         <fontDescription key="fontDescription" type="system" weight="black" pointSize="27"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
+                                        <color key="shadowColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <size key="shadowOffset" width="-1" height="2"/>
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

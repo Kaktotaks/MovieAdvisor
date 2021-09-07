@@ -40,7 +40,7 @@ class TVShowDetailsViewController: UIViewController {
     
     func requestVideos(with id: String) {
         
-        let url = "https://api.themoviedb.org/3/tv/\(id)/videos?api_key=242869b42a65c82d7bfdc955a766ce9f&language=en-US"
+        let url = "\(Constants.network.tvShowPath)\(id)\(Constants.network.keyForVideos)"
         
         AF.request(url).responseJSON { responce in
 
@@ -83,17 +83,17 @@ class TVShowDetailsViewController: UIViewController {
     }
     
     @IBAction func addToWatchLaterButtonPressed(_ sender: Any) {
-        let tvRealm = TVShowsRealm()
-        tvRealm.name = self.tvShow?.name ?? ""
-        tvRealm.popularity = self.tvShow?.popularity ?? 0.0
-        tvRealm.overview = self.tvShow?.overview ?? ""
-        tvRealm.id = self.tvShow?.id ?? 0
-        tvRealm.backdrop_path = self.tvShow?.backdrop_path ?? ""
-        tvRealm.media_type = self.tvShow?.media_type ?? ""
-        tvRealm.posterPath = self.tvShow?.posterPath ?? ""
+        let tvShowRealm = TVShowsRealm()
+        tvShowRealm.name = self.tvShow?.name ?? ""
+        tvShowRealm.popularity = self.tvShow?.popularity ?? 0.0
+        tvShowRealm.overview = self.tvShow?.overview ?? ""
+        tvShowRealm.id = self.tvShow?.id ?? 0
+        tvShowRealm.backdrop_path = self.tvShow?.backdrop_path ?? ""
+        tvShowRealm.media_type = self.tvShow?.media_type ?? ""
+        tvShowRealm.posterPath = self.tvShow?.posterPath ?? ""
 
         try? realm?.write {
-            realm?.add(tvRealm)
+            realm?.add(tvShowRealm)
         }
         self.showAlert()
     }

@@ -39,7 +39,7 @@ class MovieDetailsViewController: UIViewController {
     
     func requestVideos(with id: String) {
         
-        let url = "https://api.themoviedb.org/3/movie/\(id)/videos?api_key=242869b42a65c82d7bfdc955a766ce9f&language=en-US"
+        let url = "\(Constants.network.moviePath)\(id)\(Constants.network.keyForVideos)"
         
         AF.request(url).responseJSON { responce in
 

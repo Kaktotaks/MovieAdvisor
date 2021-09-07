@@ -19,7 +19,7 @@ class MediaViewController: UIViewController {
     let realm = try? Realm()
     
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var TVMovieSegmentedControl: UISegmentedControl!
+    @IBOutlet weak var tvShowMovieSegmentedControl: UISegmentedControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,7 +54,7 @@ class MediaViewController: UIViewController {
     //MARK: - Network request for reloading TVs
     func requestTrendingTVShows() {
         
-        let url = "https://api.themoviedb.org/3/trending/tv/week?api_key=\(Constants.network.apiKey)"
+        let url = "\(Constants.network.trendingTVShowPath)\(Constants.network.apiKey)"
         AF.request(url).responseJSON { responce in
             
             let decoder = JSONDecoder()
@@ -70,7 +70,7 @@ class MediaViewController: UIViewController {
     //MARK: - Network request for reloading movies
     func requestTrendingMovies() {
         
-        let url = "https://api.themoviedb.org/3/trending/movie/week?api_key=\(Constants.network.apiKey)"
+        let url = "\(Constants.network.trendingMoviePath)\(Constants.network.apiKey)"
         AF.request(url).responseJSON { responce in
             
             let decoder = JSONDecoder()
@@ -90,7 +90,7 @@ class MediaViewController: UIViewController {
 extension MediaViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let selectedIndex = self.TVMovieSegmentedControl.selectedSegmentIndex
+        let selectedIndex = self.tvShowMovieSegmentedControl.selectedSegmentIndex
         switch selectedIndex
         {
         case 0:
@@ -104,7 +104,7 @@ extension MediaViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let selectedIndex = self.TVMovieSegmentedControl.selectedSegmentIndex
+        let selectedIndex = self.tvShowMovieSegmentedControl.selectedSegmentIndex
         switch selectedIndex {
         
         case 0:
@@ -140,7 +140,7 @@ extension MediaViewController: UITableViewDataSource {
         
     }
     
-    @IBAction func TVMovieSegmentedChanged(_ sender: UISegmentedControl) {
+    @IBAction func tvShowMovieSegmentedChanged(_ sender: UISegmentedControl) {
         self.tableView.reloadData()
     }
 }
@@ -151,7 +151,7 @@ extension MediaViewController: UITableViewDelegate {
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
-        let selectedIndex = self.TVMovieSegmentedControl.selectedSegmentIndex
+        let selectedIndex = self.tvShowMovieSegmentedControl.selectedSegmentIndex
         
         switch selectedIndex {
         case 0:
@@ -190,7 +190,7 @@ extension MediaViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
     {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let selectedIndex = self.TVMovieSegmentedControl.selectedSegmentIndex
+        let selectedIndex = self.tvShowMovieSegmentedControl.selectedSegmentIndex
         
         switch selectedIndex {
         case 0:

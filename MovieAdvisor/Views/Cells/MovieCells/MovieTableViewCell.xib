@@ -27,10 +27,12 @@
                                 <rect key="frame" x="0.0" y="214" width="238" height="214"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="movieNameLabel" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cBn-jh-JPw">
-                                        <rect key="frame" x="16" y="91" width="206" height="64.5"/>
+                                        <rect key="frame" x="16" y="89" width="206" height="66.5"/>
                                         <fontDescription key="fontDescription" type="system" weight="black" pointSize="27"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
+                                        <color key="shadowColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <size key="shadowOffset" width="-1" height="2"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="descriptionLabel" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H8R-ms-g6o">
                                         <rect key="frame" x="16" y="185.5" width="206" height="20.5"/>
