@@ -2,64 +2,64 @@ import Foundation
 
 struct TVShow: Codable {
 	var name : String?
-    var firstAirDate : String?
-    var genreIds : [Int]?
-    var originalLanguage : String?
-    var voteCount : Int?
+    var first_air_date : String?
+    var genre_ids : [Int]?
+    var original_language : String?
+    var vote_count : Int?
     var posterPath : String?
     var id : Int?
     var overview : String?
-    var voteAverage : Double?
-    var originalName : String?
-    var originCountry : [String]?
-    var backdropPath : String?
+    var vote_average : Double?
+    var original_name : String?
+    var origin_country : [String]?
+    var backdrop_path : String?
     var popularity : Double?
-    var mediaType : String?
+    var media_type : String?
 
 	enum CodingKeys: String, CodingKey {
 
 		case name = "name"
-		case firstAirDate = "first_air_date"
-		case genreIds = "genre_ids"
-		case originalLanguage = "original_language"
-		case voteCount = "vote_count"
+		case first_air_date = "first_air_date"
+		case genre_ids = "genre_ids"
+		case original_language = "original_language"
+		case vote_count = "vote_count"
 		case posterPath = "poster_path"
 		case id = "id"
 		case overview = "overview"
-		case voteAverage = "vote_average"
-		case originalName = "original_name"
-		case originCountry = "origin_country"
-		case backdropPath = "backdrop_path"
+		case vote_average = "vote_average"
+		case original_name = "original_name"
+		case origin_country = "origin_country"
+		case backdrop_path = "backdrop_path"
 		case popularity = "popularity"
-		case mediaType = "media_type"
+		case media_type = "media_type"
 	}
 
 	init(from decoder: Decoder) throws {
 		let values = try decoder.container(keyedBy: CodingKeys.self)
 		name = try values.decodeIfPresent(String.self, forKey: .name)
-        firstAirDate = try values.decodeIfPresent(String.self, forKey: .firstAirDate)
-        genreIds = try values.decodeIfPresent([Int].self, forKey: .genreIds)
-        originalLanguage = try values.decodeIfPresent(String.self, forKey: .originalLanguage)
-        voteCount = try values.decodeIfPresent(Int.self, forKey: .voteCount)
+		first_air_date = try values.decodeIfPresent(String.self, forKey: .first_air_date)
+		genre_ids = try values.decodeIfPresent([Int].self, forKey: .genre_ids)
+		original_language = try values.decodeIfPresent(String.self, forKey: .original_language)
+		vote_count = try values.decodeIfPresent(Int.self, forKey: .vote_count)
         posterPath = try values.decodeIfPresent(String.self, forKey: .posterPath)
 		id = try values.decodeIfPresent(Int.self, forKey: .id)
 		overview = try values.decodeIfPresent(String.self, forKey: .overview)
-        voteAverage = try values.decodeIfPresent(Double.self, forKey: .voteAverage)
-        originalName = try values.decodeIfPresent(String.self, forKey: .originalName)
-        originCountry = try values.decodeIfPresent([String].self, forKey: .originCountry)
-        backdropPath = try values.decodeIfPresent(String.self, forKey: .backdropPath)
+		vote_average = try values.decodeIfPresent(Double.self, forKey: .vote_average)
+		original_name = try values.decodeIfPresent(String.self, forKey: .original_name)
+		origin_country = try values.decodeIfPresent([String].self, forKey: .origin_country)
+		backdrop_path = try values.decodeIfPresent(String.self, forKey: .backdrop_path)
 		popularity = try values.decodeIfPresent(Double.self, forKey: .popularity)
-        mediaType = try values.decodeIfPresent(String.self, forKey: .mediaType)
+		media_type = try values.decodeIfPresent(String.self, forKey: .media_type)
 	}
 
-    init(from tvShowsRealm: TVShowsRealm) {
-        self.name = tvShowsRealm.name
-        self.popularity = tvShowsRealm.popularity
-        self.overview = tvShowsRealm.overview
-        self.id = tvShowsRealm.id
-        self.backdropPath = tvShowsRealm.backdropPath
-        self.mediaType = tvShowsRealm.mediaType
-        self.posterPath = tvShowsRealm.posterPath
+    init(from tvRealm: TVShowsRealm) {
+        self.name = tvRealm.name
+        self.popularity = tvRealm.popularity
+        self.overview = tvRealm.overview
+        self.id = tvRealm.id
+        self.backdrop_path = tvRealm.backdrop_path
+        self.media_type = tvRealm.media_type
+        self.posterPath = tvRealm.posterPath
     }
     
 }

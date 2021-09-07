@@ -13,7 +13,7 @@ class TVShowsRealm: Object {
     @objc dynamic var name: String = ""
     @objc dynamic var popularity: Double = 0.0
     @objc dynamic var overview: String?
-    @objc dynamic var backdropPath : String?
-    @objc dynamic var mediaType: String?
+    @objc dynamic var backdrop_path : String?
+    @objc dynamic var media_type: String?
     @objc dynamic var posterPath: String?
     }

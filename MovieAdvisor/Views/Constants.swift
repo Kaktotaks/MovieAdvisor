@@ -15,8 +15,6 @@ struct Constants {
 
         static let defaultImagePath = "https://image.tmdb.org/t/p/original/"
         static let defaultPath = "https://api.themoviedb.org/3/"
-        
-        static let baseImageURL = "https://image.tmdb.org/t/p/w500/"
     }
     
     struct viewControllerTitles {

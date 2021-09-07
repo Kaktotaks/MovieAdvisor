@@ -44,12 +44,12 @@ class WatchLaterViewController: UIViewController {
     //MARK: -
     private func getTVShows() -> [TVShowsRealm] {
         
-        var TVShows = [TVShowsRealm]()
-        guard let TVShowsResults = realm?.objects(TVShowsRealm.self) else { return [] }
-        for tvShow in TVShowsResults {
-            TVShows.append(tvShow)
+        var TVs = [TVShowsRealm]()
+        guard let TVsResults = realm?.objects(TVShowsRealm.self) else { return [] }
+        for tv in TVsResults {
+            TVs.append(tv)
         }
-        return TVShows
+        return TVs
     }
     //MARK: -
     private func getMovies() -> [MovieRealm] {
@@ -86,6 +86,8 @@ extension WatchLaterViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.ui.defaultCellIdentifier, for: indexPath )
+        
+        
         
         let selectedIndex = self.TMWLSegmentedControl.selectedSegmentIndex
         

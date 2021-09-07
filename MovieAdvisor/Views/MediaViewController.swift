@@ -106,24 +106,25 @@ extension MediaViewController: UITableViewDataSource {
         
         let selectedIndex = self.TVMovieSegmentedControl.selectedSegmentIndex
         switch selectedIndex {
+        
         case 0:
             let tvShowCell = tableView.dequeueReusableCell(withIdentifier: "TVShowTableViewCell", for: indexPath) as! TVShowTableViewCell
             
             // UI for TVShows
-            let tvMedia = self.tvShows[indexPath.row]
-            let tvShowImagePathString = Constants.network.defaultImagePath + tvMedia.posterPath!
-            tvShowCell.tvConfigureWith(imageURL: URL(string: tvShowImagePathString),
-                                   TVName: tvMedia.name,
-                                   desriptionText: tvMedia.overview)
+            let tvShowMedia = self.tvShows[indexPath.row]
+            let tvShowImagePathString = Constants.network.defaultImagePath + tvShowMedia.posterPath!
+            tvShowCell.tvShowConfigureWith(imageURL: URL(string: tvShowImagePathString),
+                                   TVName: tvShowMedia.name,
+                                   desriptionText: tvShowMedia.overview)
             
             return tvShowCell
+            
         case 1:
-     
             let movieCell = tableView.dequeueReusableCell(withIdentifier: "MovieTableViewCell", for: indexPath) as! MovieTableViewCell
 
             // UI for Movies
             let moviesMedia = self.movies[indexPath.row]
-            let movieImagePathString = Constants.network.defaultImagePath + moviesMedia.posterPath!
+            let movieImagePathString = Constants.network.defaultImagePath + moviesMedia.poster_path!
             movieCell.movieConfigureWith(imageURL: URL(string: movieImagePathString),
                                           movieName: moviesMedia.name,
                                           desriptionText: moviesMedia.overview)

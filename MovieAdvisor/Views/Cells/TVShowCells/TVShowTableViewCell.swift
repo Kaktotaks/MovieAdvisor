@@ -28,7 +28,7 @@ class TVShowTableViewCell: UITableViewCell {
         self.selectionStyle = .none
     }
     
-    func tvConfigureWith(imageURL: URL?, TVName: String?, desriptionText: String?) {
+    func tvShowConfigureWith(imageURL: URL?, TVName: String?, desriptionText: String?) {
         self.tvNameLabel.text = TVName
         self.descriptionLabel.text = desriptionText
         self.posterImageView.sd_setImage(with: imageURL, completed: nil)

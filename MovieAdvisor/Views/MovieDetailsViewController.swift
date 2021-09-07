@@ -24,6 +24,8 @@ class MovieDetailsViewController: UIViewController {
     
     let realm = try? Realm()
     
+    let baseImageURL = "https://image.tmdb.org/t/p/w500/"
+    
     var movie: Movie? = nil
     
     override func viewDidLoad() {
@@ -57,14 +59,14 @@ class MovieDetailsViewController: UIViewController {
         
         self.title = self.movie?.name
         self.descriptionLabel.text = self.movie?.overview
-        self.filmLanguageLabel.text = self.movie?.originalLanguage
-        self.firstAirDateLabel.text = self.movie?.releaseDate
-        self.voteAverageLabel.text = String(describing:self.movie!.voteAverage!)
+        self.filmLanguageLabel.text = self.movie?.original_language
+        self.firstAirDateLabel.text = self.movie?.release_date
+        self.voteAverageLabel.text = String(describing:self.movie!.vote_average!)
         
-        if let posterPath = self.movie?.posterPath {
+        if let posterPath = self.movie?.poster_path {
 
             // Тогда создадим полную ссылку на картинку
-            let urlString = Constants.network.baseImageURL + posterPath
+            let urlString = self.baseImageURL + posterPath
 
             // И с помощью библиотеки SDWebImage задаем posterImageView картинку, загруженную по url
             self.posterImageView.sd_setImage(with: URL(string: urlString), completed: nil)
@@ -86,8 +88,8 @@ class MovieDetailsViewController: UIViewController {
         movieRealm.popularity = self.movie?.popularity ?? 0.0
         movieRealm.overview = self.movie?.overview ?? ""
         movieRealm.id = self.movie?.id ?? 0
-        movieRealm.backdropPath = self.movie?.backdropPath ?? ""
-        movieRealm.posterPath = self.movie?.posterPath ?? ""
+        movieRealm.backdrop_path = self.movie?.backdrop_path ?? ""
+        movieRealm.posterPath = self.movie?.poster_path ?? ""
 
         try? realm?.write {
             realm?.add(movieRealm)

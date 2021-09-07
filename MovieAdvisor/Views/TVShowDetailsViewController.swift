@@ -24,6 +24,8 @@ class TVShowDetailsViewController: UIViewController {
     
     let realm = try? Realm()
     
+    let baseImageURL = "https://image.tmdb.org/t/p/w500/"
+    
     var tvShow: TVShow? = nil
 
     override func viewDidLoad() {
@@ -60,14 +62,14 @@ class TVShowDetailsViewController: UIViewController {
         
         self.title = self.tvShow?.name
         self.descriptionLabel.text = self.tvShow?.overview
-        self.filmLanguageLabel.text = self.tvShow?.originalLanguage
-        self.firstAirDateLabel.text = self.tvShow?.firstAirDate
-        self.voteAverageLabel.text = String(describing:self.tvShow!.voteAverage!)
+        self.filmLanguageLabel.text = self.tvShow?.original_language
+        self.firstAirDateLabel.text = self.tvShow?.first_air_date
+        self.voteAverageLabel.text = String(describing:self.tvShow!.vote_average!)
         
         if let posterPath = self.tvShow?.posterPath {
 
             // Тогда создадим полную ссылку на картинку
-            let urlString = Constants.network.baseImageURL + posterPath
+            let urlString = self.baseImageURL + posterPath
 
             // И с помощью библиотеки SDWebImage задаем posterImageView картинку, загруженную по url
             self.posterImageView.sd_setImage(with: URL(string: urlString), completed: nil)
@@ -88,8 +90,8 @@ class TVShowDetailsViewController: UIViewController {
         tvRealm.popularity = self.tvShow?.popularity ?? 0.0
         tvRealm.overview = self.tvShow?.overview ?? ""
         tvRealm.id = self.tvShow?.id ?? 0
-        tvRealm.backdropPath = self.tvShow?.backdropPath ?? ""
-        tvRealm.mediaType = self.tvShow?.mediaType ?? ""
+        tvRealm.backdrop_path = self.tvShow?.backdrop_path ?? ""
+        tvRealm.media_type = self.tvShow?.media_type ?? ""
         tvRealm.posterPath = self.tvShow?.posterPath ?? ""
 
         try? realm?.write {
