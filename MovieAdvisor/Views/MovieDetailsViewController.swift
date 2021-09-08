@@ -82,7 +82,7 @@ class MovieDetailsViewController: UIViewController {
     }
     
     @IBAction func addToWatchLaterButtonPressed(_ sender: Any) {
-        let movieRealm = MovieRealm()
+        let movieRealm = MoviesRealm()
         movieRealm.name = self.movie?.name ?? ""
         movieRealm.popularity = self.movie?.popularity ?? 0.0
         movieRealm.overview = self.movie?.overview ?? ""

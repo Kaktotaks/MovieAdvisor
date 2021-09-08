@@ -13,11 +13,11 @@ class WatchLaterViewController: UIViewController {
     
     //Realm properties
     var tvShowsRealm: [TVShowsRealm] = []
-    var movieRealm: [MovieRealm] = []
+    var moviesRealm: [MoviesRealm] = []
     
-//    //DB properties
-//    var tvShows: [TVShow] = []
-//    var movies: [Movie] = []
+//    DB properties
+    var tvShows: [TVShow] = []
+    var movies: [Movie] = []
     
     
     let realm = try? Realm()
@@ -37,7 +37,7 @@ class WatchLaterViewController: UIViewController {
         super.viewWillAppear(animated)
         
         self.tvShowsRealm = self.getTVShows()
-        self.movieRealm = self.getMovies()
+        self.moviesRealm = self.getMovies()
         self.tableView.reloadData()
     }
     
@@ -52,10 +52,10 @@ class WatchLaterViewController: UIViewController {
         return TVs
     }
     //MARK: -
-    private func getMovies() -> [MovieRealm] {
+    private func getMovies() -> [MoviesRealm] {
         
-        var movies = [MovieRealm]()
-        guard let moviesResults = realm?.objects(MovieRealm.self) else { return [] }
+        var movies = [MoviesRealm]()
+        guard let moviesResults = realm?.objects(MoviesRealm.self) else { return [] }
         for movie in moviesResults {
             movies.append(movie)
         }
@@ -77,7 +77,7 @@ extension WatchLaterViewController: UITableViewDataSource {
         case 0:
             return tvShowsRealm.count
         case 1:
-            return movieRealm.count
+            return moviesRealm.count
         default:
             return 0
         }
@@ -96,7 +96,7 @@ extension WatchLaterViewController: UITableViewDataSource {
             cell.textLabel?.text = tvShowsRealm[indexPath.row].name
             return cell
         case 1:
-            cell.textLabel?.text = movieRealm[indexPath.row].name
+            cell.textLabel?.text = moviesRealm[indexPath.row].name
             return cell
         default:
             return UITableViewCell()
@@ -113,8 +113,8 @@ extension WatchLaterViewController: UITableViewDataSource {
                 self.deleteTVShows(objectID: self.tvShowsRealm[indexPath.row].id)
                 self.tvShowsRealm = self.getTVShows()
             case 1:
-                self.deleteMovie(objectID: self.movieRealm[indexPath.row].id)
-                self.movieRealm = self.getMovies()
+                self.deleteMovie(objectID: self.moviesRealm[indexPath.row].id)
+                self.moviesRealm = self.getMovies()
 
             default: break
             }
@@ -133,7 +133,7 @@ extension WatchLaterViewController: UITableViewDataSource {
     }
     
     func deleteMovie(objectID: Int) {
-        let object = realm?.objects(MovieRealm.self).filter("id = %@", objectID).first
+        let object = realm?.objects(MoviesRealm.self).filter("id = %@", objectID).first
         try! realm!.write {
             realm?.delete(object!)
         }
@@ -161,20 +161,36 @@ extension WatchLaterViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let object = self.TMWLSegmentedControl
-//        let selectedIndex = self.TMWLSegmentedControl.selectedSegmentIndex
-//        switch selectedIndex
-//        {
-//        case 0:
-//            let tvObject = self.tvsRealm[indexPath.row]
-//            let tvCodableObject = TV(from: tvObject)
-//            // push wievcontrollers
-//        case 1:
-//            let tvObject = self.tvsRealm[indexPath.row]
-//            let tvCodableObject = TV(from: tvObject)
-//        default:
-//            return
-//        }
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let object = self.TMWLSegmentedControl
+        let selectedIndex = self.TMWLSegmentedControl.selectedSegmentIndex
+        
+        switch selectedIndex
+        {
+        case 0:
+            let tvObject = self.tvShowsRealm[indexPath.row]
+            let tvCodableObject = TVShow(from: tvObject)
+            
+            let TVidentifier = String(describing: TVShowDetailsViewController.self)
+            if let detailViewController = storyboard.instantiateViewController(identifier: TVidentifier) as? TVShowDetailsViewController {
+                detailViewController.tvShow = self.tvShows[indexPath.row]
+                self.navigationController?.pushViewController(detailViewController, animated: true)
+            }
+            
+            // push wievcontrollers
+        case 1:
+            let movieObject = self.moviesRealm[indexPath.row]
+            let movieCodableObject = Movie(from: movieObject)
+            
+            let movieidentifier = String(describing: MovieDetailsViewController.self)
+            if let detailViewController = storyboard.instantiateViewController(identifier: movieidentifier) as? MovieDetailsViewController {
+                detailViewController.movie = self.movies[indexPath.row]
+                self.navigationController?.pushViewController(detailViewController, animated: true)
+            }
+        default:
+            return
+        }
     }
 }
 

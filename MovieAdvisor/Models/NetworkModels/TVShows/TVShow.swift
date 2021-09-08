@@ -52,14 +52,14 @@ struct TVShow: Codable {
 		media_type = try values.decodeIfPresent(String.self, forKey: .media_type)
 	}
 
-    init(from tvRealm: TVShowsRealm) {
-        self.name = tvRealm.name
-        self.popularity = tvRealm.popularity
-        self.overview = tvRealm.overview
-        self.id = tvRealm.id
-        self.backdrop_path = tvRealm.backdrop_path
-        self.media_type = tvRealm.media_type
-        self.posterPath = tvRealm.posterPath
+    init(from tvShowsRealm: TVShowsRealm) {
+        self.name = tvShowsRealm.name
+        self.popularity = tvShowsRealm.popularity
+        self.overview = tvShowsRealm.overview
+        self.id = tvShowsRealm.id
+        self.backdrop_path = tvShowsRealm.backdrop_path
+        self.media_type = tvShowsRealm.media_type
+        self.posterPath = tvShowsRealm.posterPath
     }
     
 }

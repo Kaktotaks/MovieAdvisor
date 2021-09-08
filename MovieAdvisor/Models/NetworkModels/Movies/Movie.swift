@@ -3,7 +3,7 @@ import Foundation
 struct Movie : Codable {
 	let adult : Bool?
 	let backdrop_path : String?
-	let genre_ids : [Int]?
+//	let genre_ids : [Int]?
 	let id : Int?
 	let original_language : String?
 	let original_title : String?
@@ -20,7 +20,7 @@ struct Movie : Codable {
 
 		case adult = "adult"
 		case backdrop_path = "backdrop_path"
-		case genre_ids = "genre_ids"
+//		case genre_ids = "genre_ids"
 		case id = "id"
 		case original_language = "original_language"
 		case original_title = "original_title"
@@ -38,7 +38,7 @@ struct Movie : Codable {
 		let values = try decoder.container(keyedBy: CodingKeys.self)
 		adult = try values.decodeIfPresent(Bool.self, forKey: .adult)
 		backdrop_path = try values.decodeIfPresent(String.self, forKey: .backdrop_path)
-		genre_ids = try values.decodeIfPresent([Int].self, forKey: .genre_ids)
+//		genre_ids = try values.decodeIfPresent([Int].self, forKey: .genre_ids)
 		id = try values.decodeIfPresent(Int.self, forKey: .id)
 		original_language = try values.decodeIfPresent(String.self, forKey: .original_language)
 		original_title = try values.decodeIfPresent(String.self, forKey: .original_title)
@@ -53,13 +53,22 @@ struct Movie : Codable {
 	}
     
     
-//    init(from movieRealm: MovieRealm) {
-//        self.name = movieRealm.name
-//        self.popularity = movieRealm.popularity
-//        self.overview = movieRealm.overview
-//        self.id = movieRealm.id
-//        self.backdropPath = movieRealm.backdropPath
-//        self.posterPath = movieRealm.posterPath
-//    }
+    init(from moviesRealm: MoviesRealm) {
+        
+        self.adult = moviesRealm.adult
+//        self.genre_ids = moviesRealm.genreIds
+        self.original_language = moviesRealm.originalLanguage
+        self.original_title = moviesRealm.originalTitle
+        self.release_date = moviesRealm.releaseDate
+        self.video = moviesRealm.video
+        self.vote_average = moviesRealm.voteAverage
+        self.vote_count = moviesRealm.voteCount
+        self.name = moviesRealm.name
+        self.popularity = moviesRealm.popularity
+        self.overview = moviesRealm.overview
+        self.id = moviesRealm.id
+        self.backdrop_path = moviesRealm.backdrop_path
+        self.poster_path = moviesRealm.posterPath
+    }
 
 }
