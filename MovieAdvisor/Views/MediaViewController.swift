@@ -155,17 +155,17 @@ extension MediaViewController: UITableViewDelegate {
         
         switch selectedIndex {
         case 0:
-            let TVidentifier = String(describing: TVShowDetailsViewController.self)
+            let tvIdentifier = String(describing: TVShowDetailsViewController.self)
             
-            if let detailViewController = storyboard.instantiateViewController(identifier: TVidentifier) as? TVShowDetailsViewController {
+            if let detailViewController = storyboard.instantiateViewController(identifier: tvIdentifier) as? TVShowDetailsViewController {
                 detailViewController.tvShow = self.tvShows[indexPath.row]
                 
                 self.navigationController?.pushViewController(detailViewController, animated: true)
             }
         case 1:
-            let movieidentifier = String(describing: MovieDetailsViewController.self)
+            let movieIdentifier = String(describing: MovieDetailsViewController.self)
             
-            if let detailViewController = storyboard.instantiateViewController(identifier: movieidentifier) as? MovieDetailsViewController {
+            if let detailViewController = storyboard.instantiateViewController(identifier: movieIdentifier) as? MovieDetailsViewController {
                 detailViewController.movie = self.movies[indexPath.row]
                 
                 self.navigationController?.pushViewController(detailViewController, animated: true)
@@ -180,13 +180,14 @@ extension MediaViewController: UITableViewDelegate {
                 self.navigationController?.pushViewController(detailViewController, animated: true)
             }
         }
-        
     }
     
+    //MARK: HeightForRowAt
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return  540
     }
-    //Appearing cells animation
+    
+    //MARK:- Appearing cells animation
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
     {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)

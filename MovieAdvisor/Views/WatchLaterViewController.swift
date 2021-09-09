@@ -30,6 +30,14 @@ class WatchLaterViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let tvTableViewCellIdentifier = String(describing: TVShowTableViewCell.self)
+        self.tableView.register(UINib(nibName: tvTableViewCellIdentifier, bundle: nil),
+                                 forCellReuseIdentifier: tvTableViewCellIdentifier)
+        
+        let movieTableViewCellIdentifier = String(describing: MovieTableViewCell.self)
+        self.tableView.register(UINib(nibName: movieTableViewCellIdentifier, bundle: nil),
+                                 forCellReuseIdentifier: movieTableViewCellIdentifier)
+        
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: Constants.ui.defaultCellIdentifier)
     }
     
@@ -85,24 +93,39 @@ extension WatchLaterViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.ui.defaultCellIdentifier, for: indexPath )
-        
-        
-        
         let selectedIndex = self.TMWLSegmentedControl.selectedSegmentIndex
         
         switch selectedIndex {
         case 0:
-            cell.textLabel?.text = tvShowsRealm[indexPath.row].name
-            return cell
+        
+            let tvShowCell = tableView.dequeueReusableCell(withIdentifier: "TVShowTableViewCell", for: indexPath) as! TVShowTableViewCell
+            
+                        // UI for TVShows
+                        let tvShowMedia = self.tvShowsRealm[indexPath.row]
+                        let tvShowImagePathString = Constants.network.defaultImagePath + tvShowMedia.posterPath!
+                        tvShowCell.tvShowConfigureWith(imageURL: URL(string: tvShowImagePathString),
+                                               TVName: tvShowMedia.name,
+                                               desriptionText: tvShowMedia.overview)
+            
+                        return tvShowCell
         case 1:
-            cell.textLabel?.text = moviesRealm[indexPath.row].name
-            return cell
+        
+            let movieCell = tableView.dequeueReusableCell(withIdentifier: "MovieTableViewCell", for: indexPath) as! MovieTableViewCell
+
+            // UI for Movies
+            let moviesMedia = self.moviesRealm[indexPath.row]
+            let movieImagePathString = Constants.network.defaultImagePath + moviesMedia.posterPath!
+            movieCell.movieConfigureWith(imageURL: URL(string: movieImagePathString),
+                                          movieName: moviesMedia.name,
+                                          desriptionText: moviesMedia.overview)
+            return movieCell
+            
         default:
             return UITableViewCell()
         }
+        
     }
-    // Добавил в UITableViewDataSource
+//MARK: - Delete Function
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
         let selectedIndex = self.TMWLSegmentedControl.selectedSegmentIndex
@@ -144,8 +167,10 @@ extension WatchLaterViewController: UITableViewDataSource {
 extension WatchLaterViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         return .delete
-        
-        
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return  530
     }
     
     //Appearing cells animation
@@ -161,9 +186,10 @@ extension WatchLaterViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let object = self.TMWLSegmentedControl
+//        let object = self.TMWLSegmentedControl
         let selectedIndex = self.TMWLSegmentedControl.selectedSegmentIndex
         
         switch selectedIndex
@@ -171,20 +197,20 @@ extension WatchLaterViewController: UITableViewDelegate {
         case 0:
             let tvObject = self.tvShowsRealm[indexPath.row]
             let tvCodableObject = TVShow(from: tvObject)
-            
-            let TVidentifier = String(describing: TVShowDetailsViewController.self)
-            if let detailViewController = storyboard.instantiateViewController(identifier: TVidentifier) as? TVShowDetailsViewController {
+
+            let tvIdentifier = String(describing: TVShowDetailsViewController.self)
+            if let detailViewController = storyboard.instantiateViewController(identifier: tvIdentifier) as? TVShowDetailsViewController {
                 detailViewController.tvShow = self.tvShows[indexPath.row]
                 self.navigationController?.pushViewController(detailViewController, animated: true)
             }
-            
+
             // push wievcontrollers
         case 1:
             let movieObject = self.moviesRealm[indexPath.row]
             let movieCodableObject = Movie(from: movieObject)
-            
-            let movieidentifier = String(describing: MovieDetailsViewController.self)
-            if let detailViewController = storyboard.instantiateViewController(identifier: movieidentifier) as? MovieDetailsViewController {
+
+            let movieIdentifier = String(describing: MovieDetailsViewController.self)
+            if let detailViewController = storyboard.instantiateViewController(identifier: movieIdentifier) as? MovieDetailsViewController {
                 detailViewController.movie = self.movies[indexPath.row]
                 self.navigationController?.pushViewController(detailViewController, animated: true)
             }
