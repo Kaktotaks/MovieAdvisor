@@ -9,7 +9,7 @@ import UIKit
 import Alamofire
 import RealmSwift
 
-class MediaViewController: UIViewController, UISearchBarDelegate {
+class MediaViewController: UIViewController {
     
     private let imageView: UIImageView = {
         let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 150, height: 150))
@@ -31,8 +31,6 @@ class MediaViewController: UIViewController, UISearchBarDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        searchBar.delegate = self
         
         filteredMovieData = movies
         filteredTvShowData = tvShows
@@ -167,7 +165,7 @@ extension MediaViewController: UITableViewDataSource {
             let movieCell = tableView.dequeueReusableCell(withIdentifier: "MovieTableViewCell", for: indexPath) as! MovieTableViewCell
 
             // UI for Movies
-            let moviesMedia = self.movies[indexPath.row]
+            let moviesMedia = self.filteredMovieData[indexPath.row]
             let movieImagePathString = Constants.network.defaultImagePath + moviesMedia.poster_path!
             movieCell.movieConfigureWith(imageURL: URL(string: movieImagePathString),
                                           movieName: moviesMedia.name,
@@ -197,7 +195,7 @@ extension MediaViewController: UITableViewDelegate {
             let tvIdentifier = String(describing: TVShowDetailsViewController.self)
             
             if let detailViewController = storyboard.instantiateViewController(identifier: tvIdentifier) as? TVShowDetailsViewController {
-                detailViewController.tvShow = self.tvShows[indexPath.row]
+                detailViewController.tvShow = self.filteredTvShowData[indexPath.row]
                 
                 self.navigationController?.pushViewController(detailViewController, animated: true)
             }
@@ -205,7 +203,7 @@ extension MediaViewController: UITableViewDelegate {
             let movieIdentifier = String(describing: MovieDetailsViewController.self)
             
             if let detailViewController = storyboard.instantiateViewController(identifier: movieIdentifier) as? MovieDetailsViewController {
-                detailViewController.movie = self.movies[indexPath.row]
+                detailViewController.movie = self.filteredMovieData[indexPath.row]
                 
                 self.navigationController?.pushViewController(detailViewController, animated: true)
             }
@@ -214,7 +212,7 @@ extension MediaViewController: UITableViewDelegate {
             let TVidentifier = String(describing: TVShowDetailsViewController.self)
             
             if let detailViewController = storyboard.instantiateViewController(identifier: TVidentifier) as? TVShowDetailsViewController {
-                detailViewController.tvShow = self.tvShows[indexPath.row]
+                detailViewController.tvShow = self.filteredTvShowData[indexPath.row]
                 
                 self.navigationController?.pushViewController(detailViewController, animated: true)
             }
@@ -314,6 +312,10 @@ extension MediaViewController: UITableViewDelegate {
         
         self.tableView.reloadData()
     }
+}
+
+extension MediaViewController: UISearchBarDelegate{
+    
 }
 // Saving !
 // Saving !
