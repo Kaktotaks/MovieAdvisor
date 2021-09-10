@@ -11,10 +11,14 @@ import RealmSwift
 
 class MediaViewController: UIViewController {
     
+    private let imageView: UIImageView = {
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 150, height: 150))
+        imageView.image = UIImage(named: "popcorn")
+        return imageView
+    }()
+    
     var tvShows: [TVShow] = []
     var movies: [Movie] = []
-    
-    
     
     let realm = try? Realm()
     
@@ -23,6 +27,8 @@ class MediaViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        view.addSubview(imageView)
         
         let tvTableViewCellIdentifier = String(describing: TVShowTableViewCell.self)
         self.tableView.register(UINib(nibName: tvTableViewCellIdentifier, bundle: nil),
@@ -39,6 +45,34 @@ class MediaViewController: UIViewController {
         
         self.title = Constants.viewControllerTitles.media
         self.navigationController?.navigationBar.prefersLargeTitles = false
+    }
+    
+    //MARK:- Add launchScreen animation
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        imageView.center = view.center
+        launchScreenAnimate() // animate()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now()+0.7, execute: {
+                                        self.launchScreenAnimate()
+        })
+    }
+    
+    private func launchScreenAnimate() {
+        UIView.animate(withDuration: 1, animations: {
+            let size = self.view.frame.size.width * 2.5
+            let diffX = size - self.view.frame.size.width
+            let diffY = self.view.frame.size.height - size
+            
+            self.imageView.frame = CGRect(
+                x: -(diffX/2),
+                y: diffY/2,
+                width: size,
+                height: size
+            )
+            
+            self.imageView.alpha = 0
+        })
     }
     
     override func viewWillAppear(_ animated: Bool) {

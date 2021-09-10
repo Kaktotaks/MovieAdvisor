@@ -23,6 +23,7 @@
 		E44B89B426C66D46008ED8FC /* TVShowsRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44B89B326C66D46008ED8FC /* TVShowsRealm.swift */; };
 		E44B89F126CAACD1008ED8FC /* PopularMovieResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44B89EF26CAACD1008ED8FC /* PopularMovieResult.swift */; };
 		E44B89F226CAACD1008ED8FC /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44B89F026CAACD1008ED8FC /* Movie.swift */; };
+		E45B344C26EBB2EA00B529D8 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45B344B26EBB2EA00B529D8 /* HomeViewController.swift */; };
 		E4CB063A26DD14000020DA48 /* MovieDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CB063926DD14000020DA48 /* MovieDetailsViewController.swift */; };
 		E4CB063C26DD163F0020DA48 /* MoviesRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CB063B26DD163F0020DA48 /* MoviesRealm.swift */; };
 		E4CB063E26E0CDC00020DA48 /* GradienView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CB063D26E0CDC00020DA48 /* GradienView.swift */; };
@@ -56,6 +57,7 @@
 		E44B89B326C66D46008ED8FC /* TVShowsRealm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TVShowsRealm.swift; sourceTree = "<group>"; };
 		E44B89EF26CAACD1008ED8FC /* PopularMovieResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopularMovieResult.swift; sourceTree = "<group>"; };
 		E44B89F026CAACD1008ED8FC /* Movie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
+		E45B344B26EBB2EA00B529D8 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		E4CB063926DD14000020DA48 /* MovieDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsViewController.swift; sourceTree = "<group>"; };
 		E4CB063B26DD163F0020DA48 /* MoviesRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesRealm.swift; sourceTree = "<group>"; };
 		E4CB063D26E0CDC00020DA48 /* GradienView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradienView.swift; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 				E44B899526C66AE5008ED8FC /* WatchLaterViewController.swift */,
 				E44B899326C66AC0008ED8FC /* TVShowDetailsViewController.swift */,
 				E4CB063926DD14000020DA48 /* MovieDetailsViewController.swift */,
+				E45B344B26EBB2EA00B529D8 /* HomeViewController.swift */,
 				E44B899726C66B12008ED8FC /* Cells */,
 			);
 			path = Views;
@@ -352,6 +355,7 @@
 			files = (
 				E44B899426C66AC0008ED8FC /* TVShowDetailsViewController.swift in Sources */,
 				E4CB064C26E273F10020DA48 /* TVShowTableViewCell.swift in Sources */,
+				E45B344C26EBB2EA00B529D8 /* HomeViewController.swift in Sources */,
 				E44B89AE26C66D15008ED8FC /* PopularTVShowResult.swift in Sources */,
 				E4CB063C26DD163F0020DA48 /* MoviesRealm.swift in Sources */,
 				E4CB063A26DD14000020DA48 /* MovieDetailsViewController.swift in Sources */,
