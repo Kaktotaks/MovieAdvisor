@@ -17,18 +17,29 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="vOE-o6-MUl">
-                                <rect key="frame" x="0.0" y="140" width="414" height="756"/>
+                                <rect key="frame" x="0.0" y="205" width="414" height="691"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="756" id="cFa-y1-KMO"/>
+                                    <constraint firstAttribute="height" constant="691" id="cFa-y1-KMO"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="MHy-oh-1Cp"/>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="POu-2M-ODW"/>
                                 </connections>
                             </tableView>
+                            <searchBar contentMode="redraw" searchBarStyle="prominent" placeholder="Search a film" translatesAutoresizingMaskIntoConstraints="NO" id="eWh-wK-iWz">
+                                <rect key="frame" x="0.0" y="88" width="414" height="51"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="51" id="Tph-Fk-QgT"/>
+                                </constraints>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="yM0-e3-knE"/>
+                                </connections>
+                            </searchBar>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="euT-nQ-ssP">
-                                <rect key="frame" x="126.5" y="98" width="161" height="33"/>
+                                <rect key="frame" x="126.5" y="156" width="161" height="33"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="32" id="t1i-X6-sVi"/>
                                 </constraints>
@@ -45,15 +56,19 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="vOE-o6-MUl" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="3tF-rz-2UD"/>
-                            <constraint firstItem="euT-nQ-ssP" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="BrS-V1-xhp"/>
+                            <constraint firstItem="eWh-wK-iWz" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="F99-YI-MFQ"/>
+                            <constraint firstItem="euT-nQ-ssP" firstAttribute="top" secondItem="eWh-wK-iWz" secondAttribute="bottom" constant="17" id="HQx-lh-Vwd"/>
+                            <constraint firstItem="eWh-wK-iWz" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="ZYg-6z-AK9"/>
                             <constraint firstItem="euT-nQ-ssP" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="bQe-FP-jMY"/>
                             <constraint firstAttribute="bottom" secondItem="vOE-o6-MUl" secondAttribute="bottom" id="jtV-iO-DC1"/>
-                            <constraint firstItem="vOE-o6-MUl" firstAttribute="top" secondItem="euT-nQ-ssP" secondAttribute="bottom" constant="10" id="nDM-d9-cYO"/>
+                            <constraint firstItem="vOE-o6-MUl" firstAttribute="top" secondItem="euT-nQ-ssP" secondAttribute="bottom" constant="17" id="nDM-d9-cYO"/>
+                            <constraint firstItem="eWh-wK-iWz" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="yYf-b9-qgk"/>
                             <constraint firstItem="vOE-o6-MUl" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="z0f-MF-n6t"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="7Y6-rQ-gUc"/>
                     <connections>
+                        <outlet property="searchBar" destination="eWh-wK-iWz" id="bAU-Dh-390"/>
                         <outlet property="tableView" destination="vOE-o6-MUl" id="919-SV-M96"/>
                         <outlet property="tvShowMovieSegmentedControl" destination="euT-nQ-ssP" id="epJ-AU-bVv"/>
                     </connections>

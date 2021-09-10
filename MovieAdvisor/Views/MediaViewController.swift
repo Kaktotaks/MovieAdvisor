@@ -9,13 +9,16 @@ import UIKit
 import Alamofire
 import RealmSwift
 
-class MediaViewController: UIViewController {
+class MediaViewController: UIViewController, UISearchBarDelegate {
     
     private let imageView: UIImageView = {
         let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 150, height: 150))
         imageView.image = UIImage(named: "popcorn")
         return imageView
     }()
+    
+    var filteredMovieData: [Movie]!
+    var filteredTvShowData: [TVShow]!
     
     var tvShows: [TVShow] = []
     var movies: [Movie] = []
@@ -24,9 +27,16 @@ class MediaViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tvShowMovieSegmentedControl: UISegmentedControl!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        searchBar.delegate = self
+        
+        filteredMovieData = movies
+        filteredTvShowData = tvShows
+        
         
         view.addSubview(imageView)
         
@@ -128,9 +138,9 @@ extension MediaViewController: UITableViewDataSource {
         switch selectedIndex
         {
         case 0:
-            return tvShows.count
+            return filteredTvShowData.count
         case 1:
-            return movies.count
+            return filteredMovieData.count
         default:
             return 0
         }
@@ -145,7 +155,7 @@ extension MediaViewController: UITableViewDataSource {
             let tvShowCell = tableView.dequeueReusableCell(withIdentifier: "TVShowTableViewCell", for: indexPath) as! TVShowTableViewCell
             
             // UI for TVShows
-            let tvShowMedia = self.tvShows[indexPath.row]
+            let tvShowMedia = self.filteredTvShowData[indexPath.row]
             let tvShowImagePathString = Constants.network.defaultImagePath + tvShowMedia.posterPath!
             tvShowCell.tvShowConfigureWith(imageURL: URL(string: tvShowImagePathString),
                                    TVName: tvShowMedia.name,
@@ -261,6 +271,52 @@ extension MediaViewController: UITableViewDelegate {
         }
     }
     
-    
+    //MARK: SearchBar config
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        let selectedIndex = self.tvShowMovieSegmentedControl.selectedSegmentIndex
+        switch selectedIndex {
+        
+        case 0:
+            filteredTvShowData = []
+            
+            if searchText == "" {
+                filteredTvShowData = tvShows
+            }
+            else {
+                for tvShow in tvShows {
+                    
+                    if ((tvShow.name!.lowercased().contains(searchText.lowercased()))) {
+                        
+                        filteredTvShowData.append(tvShow)
+                    }
+                }
+            }
+            
+        case 1:
+            filteredMovieData = []
+            
+            if searchText == "" {
+                filteredMovieData = movies
+            }
+            else {
+                for movie in movies {
+                    
+                    if ((movie.name!.lowercased().contains(searchText.lowercased()))) {
+                        
+                        filteredMovieData.append(movie)
+                    }
+                }
+            }
+        default:
+            return
+        }
+        
+        self.tableView.reloadData()
+    }
 }
+// Saving !
+// Saving !
+// Saving !
+
 
