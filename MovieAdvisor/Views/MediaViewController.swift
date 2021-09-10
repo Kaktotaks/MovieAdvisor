@@ -133,11 +133,6 @@ extension MediaViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         
-
-        
-
-        
-        
     }
     
     @IBAction func tvShowMovieSegmentedChanged(_ sender: UISegmentedControl) {
