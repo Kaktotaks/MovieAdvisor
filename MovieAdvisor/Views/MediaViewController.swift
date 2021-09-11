@@ -17,8 +17,8 @@ class MediaViewController: UIViewController {
         return imageView
     }()
     
-    var filteredMovieData: [Movie]!
-    var filteredTvShowData: [TVShow]!
+    //    var filteredMovieData: [Movie]!
+    //    var filteredTvShowData: [TVShow]!
     
     var tvShows: [TVShow] = []
     var movies: [Movie] = []
@@ -31,20 +31,16 @@ class MediaViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        filteredMovieData = movies
-        filteredTvShowData = tvShows
-        
-        
+
         view.addSubview(imageView)
         
         let tvTableViewCellIdentifier = String(describing: TVShowTableViewCell.self)
         self.tableView.register(UINib(nibName: tvTableViewCellIdentifier, bundle: nil),
-                                 forCellReuseIdentifier: tvTableViewCellIdentifier)
+                                forCellReuseIdentifier: tvTableViewCellIdentifier)
         
         let movieTableViewCellIdentifier = String(describing: MovieTableViewCell.self)
         self.tableView.register(UINib(nibName: movieTableViewCellIdentifier, bundle: nil),
-                                 forCellReuseIdentifier: movieTableViewCellIdentifier)
+                                forCellReuseIdentifier: movieTableViewCellIdentifier)
         
         
         
@@ -62,7 +58,7 @@ class MediaViewController: UIViewController {
         launchScreenAnimate() // animate()
         
         DispatchQueue.main.asyncAfter(deadline: .now()+0.7, execute: {
-                                        self.launchScreenAnimate()
+            self.launchScreenAnimate()
         })
     }
     
@@ -136,9 +132,9 @@ extension MediaViewController: UITableViewDataSource {
         switch selectedIndex
         {
         case 0:
-            return filteredTvShowData.count
+            return self.tvShows.count
         case 1:
-            return filteredMovieData.count
+            return self.movies.count
         default:
             return 0
         }
@@ -153,23 +149,23 @@ extension MediaViewController: UITableViewDataSource {
             let tvShowCell = tableView.dequeueReusableCell(withIdentifier: "TVShowTableViewCell", for: indexPath) as! TVShowTableViewCell
             
             // UI for TVShows
-            let tvShowMedia = self.filteredTvShowData[indexPath.row]
+            let tvShowMedia = self.tvShows[indexPath.row]
             let tvShowImagePathString = Constants.network.defaultImagePath + tvShowMedia.posterPath!
             tvShowCell.tvShowConfigureWith(imageURL: URL(string: tvShowImagePathString),
-                                   TVName: tvShowMedia.name,
-                                   desriptionText: tvShowMedia.overview)
+                                           TVName: tvShowMedia.name,
+                                           desriptionText: tvShowMedia.overview)
             
             return tvShowCell
             
         case 1:
             let movieCell = tableView.dequeueReusableCell(withIdentifier: "MovieTableViewCell", for: indexPath) as! MovieTableViewCell
-
+            
             // UI for Movies
-            let moviesMedia = self.filteredMovieData[indexPath.row]
+            let moviesMedia = self.movies[indexPath.row]
             let movieImagePathString = Constants.network.defaultImagePath + moviesMedia.poster_path!
             movieCell.movieConfigureWith(imageURL: URL(string: movieImagePathString),
-                                          movieName: moviesMedia.name,
-                                          desriptionText: moviesMedia.overview)
+                                         movieName: moviesMedia.name,
+                                         desriptionText: moviesMedia.overview)
             return movieCell
         default:
             return UITableViewCell()
@@ -195,7 +191,7 @@ extension MediaViewController: UITableViewDelegate {
             let tvIdentifier = String(describing: TVShowDetailsViewController.self)
             
             if let detailViewController = storyboard.instantiateViewController(identifier: tvIdentifier) as? TVShowDetailsViewController {
-                detailViewController.tvShow = self.filteredTvShowData[indexPath.row]
+                detailViewController.tvShow = self.tvShows[indexPath.row]
                 
                 self.navigationController?.pushViewController(detailViewController, animated: true)
             }
@@ -203,19 +199,13 @@ extension MediaViewController: UITableViewDelegate {
             let movieIdentifier = String(describing: MovieDetailsViewController.self)
             
             if let detailViewController = storyboard.instantiateViewController(identifier: movieIdentifier) as? MovieDetailsViewController {
-                detailViewController.movie = self.filteredMovieData[indexPath.row]
+                detailViewController.movie = self.movies[indexPath.row]
                 
                 self.navigationController?.pushViewController(detailViewController, animated: true)
             }
             
         default:
-            let TVidentifier = String(describing: TVShowDetailsViewController.self)
-            
-            if let detailViewController = storyboard.instantiateViewController(identifier: TVidentifier) as? TVShowDetailsViewController {
-                detailViewController.tvShow = self.filteredTvShowData[indexPath.row]
-                
-                self.navigationController?.pushViewController(detailViewController, animated: true)
-            }
+            break
         }
     }
     
@@ -241,7 +231,7 @@ extension MediaViewController: UITableViewDelegate {
                 cell.alpha = 0.5
                 
             }
-           
+            
         case 1:
             let movieidentifier = String(describing: MovieDetailsViewController.self)
             
@@ -250,7 +240,7 @@ extension MediaViewController: UITableViewDelegate {
                 cell.layer.transform = rotationTransform
                 cell.alpha = 0.5
             }
-           
+            
         default:
             let TVidentifier = String(describing: TVShowDetailsViewController.self)
             
@@ -276,34 +266,17 @@ extension MediaViewController: UITableViewDelegate {
         switch selectedIndex {
         
         case 0:
-            filteredTvShowData = []
+            self.tvShows = []
             
-            if searchText == "" {
-                filteredTvShowData = tvShows
-            }
-            else {
-                for tvShow in tvShows {
-                    
-                    if ((tvShow.name!.lowercased().contains(searchText.lowercased()))) {
-                        
-                        filteredTvShowData.append(tvShow)
-                    }
+            for tvShow in tvShows {
+                if ((tvShow.name!.lowercased().contains(searchText.lowercased()))) {
+                    self.tvShows.append(tvShow)
                 }
             }
-            
         case 1:
-            filteredMovieData = []
-            
-            if searchText == "" {
-                filteredMovieData = movies
-            }
-            else {
-                for movie in movies {
-                    
-                    if ((movie.name!.lowercased().contains(searchText.lowercased()))) {
-                        
-                        filteredMovieData.append(movie)
-                    }
+            for movie in movies {
+                if ((movie.name!.lowercased().contains(searchText.lowercased()))) {
+                    self.movies.append(movie)
                 }
             }
         default:

@@ -11,18 +11,11 @@ import Alamofire
 
 class WatchLaterViewController: UIViewController {
     
-    //Realm properties
-    var tvShowsRealm: [TVShowsRealm] = []
-    var moviesRealm: [MoviesRealm] = []
-    
 //    DB properties
     var tvShows: [TVShow] = []
     var movies: [Movie] = []
     
-    
     let realm = try? Realm()
-    
-    
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var TMWLSegmentedControl: UISegmentedControl!
@@ -44,28 +37,31 @@ class WatchLaterViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.tvShowsRealm = self.getTVShows()
-        self.moviesRealm = self.getMovies()
+        self.tvShows = self.getTVShows()
+        self.movies = self.getMovies()
         self.tableView.reloadData()
     }
     
     //MARK: -
-    private func getTVShows() -> [TVShowsRealm] {
+    private func getTVShows() -> [TVShow] {
         
-        var TVs = [TVShowsRealm]()
+        var resultData: [TVShow] = []
         guard let TVsResults = realm?.objects(TVShowsRealm.self) else { return [] }
         for tv in TVsResults {
-            TVs.append(tv)
+            let tvShow = TVShow(from: tv)
+            resultData.append(tvShow)
         }
-        return TVs
+        
+        return resultData
     }
     //MARK: -
-    private func getMovies() -> [MoviesRealm] {
+    private func getMovies() -> [Movie] {
         
-        var movies = [MoviesRealm]()
+        var movies = [Movie]()
         guard let moviesResults = realm?.objects(MoviesRealm.self) else { return [] }
         for movie in moviesResults {
-            movies.append(movie)
+            let codableMovie = Movie(from: movie)
+            movies.append(codableMovie)
         }
         return movies
     }
@@ -83,9 +79,9 @@ extension WatchLaterViewController: UITableViewDataSource {
         switch selectedIndex
         {
         case 0:
-            return tvShowsRealm.count
+            return self.tvShows.count
         case 1:
-            return moviesRealm.count
+            return self.movies.count
         default:
             return 0
         }
@@ -101,7 +97,7 @@ extension WatchLaterViewController: UITableViewDataSource {
             let tvShowCell = tableView.dequeueReusableCell(withIdentifier: "TVShowTableViewCell", for: indexPath) as! TVShowTableViewCell
             
                         // UI for TVShows
-                        let tvShowMedia = self.tvShowsRealm[indexPath.row]
+                        let tvShowMedia = self.tvShows[indexPath.row]
                         let tvShowImagePathString = Constants.network.defaultImagePath + tvShowMedia.posterPath!
                         tvShowCell.tvShowConfigureWith(imageURL: URL(string: tvShowImagePathString),
                                                TVName: tvShowMedia.name,
@@ -113,8 +109,8 @@ extension WatchLaterViewController: UITableViewDataSource {
             let movieCell = tableView.dequeueReusableCell(withIdentifier: "MovieTableViewCell", for: indexPath) as! MovieTableViewCell
 
             // UI for Movies
-            let moviesMedia = self.moviesRealm[indexPath.row]
-            let movieImagePathString = Constants.network.defaultImagePath + moviesMedia.posterPath!
+            let moviesMedia = self.movies[indexPath.row]
+            let movieImagePathString = Constants.network.defaultImagePath + moviesMedia.poster_path!
             movieCell.movieConfigureWith(imageURL: URL(string: movieImagePathString),
                                           movieName: moviesMedia.name,
                                           desriptionText: moviesMedia.overview)
@@ -132,13 +128,11 @@ extension WatchLaterViewController: UITableViewDataSource {
         if editingStyle == .delete {
             switch selectedIndex {
             case 0:
-
-                self.deleteTVShows(objectID: self.tvShowsRealm[indexPath.row].id)
-                self.tvShowsRealm = self.getTVShows()
+                self.deleteTVShows(objectID: self.tvShows[indexPath.row].id ?? 0)
+                self.tvShows = self.getTVShows()
             case 1:
-                self.deleteMovie(objectID: self.moviesRealm[indexPath.row].id)
-                self.moviesRealm = self.getMovies()
-
+                self.deleteMovie(objectID: self.movies[indexPath.row].id ?? 0)
+                self.movies = self.getMovies()
             default: break
             }
             
@@ -197,9 +191,6 @@ extension WatchLaterViewController: UITableViewDelegate {
         switch selectedIndex
         {
         case 0:
-            let tvObject = self.tvShowsRealm[indexPath.row]
-            let tvCodableObject = TVShow(from: tvObject)
-
             let tvIdentifier = String(describing: TVShowDetailsViewController.self)
             if let detailViewController = storyboard.instantiateViewController(identifier: tvIdentifier) as? TVShowDetailsViewController {
                 detailViewController.tvShow = self.tvShows[indexPath.row]
@@ -208,9 +199,6 @@ extension WatchLaterViewController: UITableViewDelegate {
 
             // push wievcontrollers
         case 1:
-            let movieObject = self.moviesRealm[indexPath.row]
-            let movieCodableObject = Movie(from: movieObject)
-
             let movieIdentifier = String(describing: MovieDetailsViewController.self)
             if let detailViewController = storyboard.instantiateViewController(identifier: movieIdentifier) as? MovieDetailsViewController {
                 detailViewController.movie = self.movies[indexPath.row]
