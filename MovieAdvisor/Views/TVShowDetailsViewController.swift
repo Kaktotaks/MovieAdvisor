@@ -45,10 +45,11 @@ class TVShowDetailsViewController: UIViewController {
         AF.request(url).responseJSON { responce in
 
             let decoder = JSONDecoder()
+            guard let data = responce.data else { return }
             
-            if let data = try? decoder.decode(VideoResult.self, from: responce.data!){
-                let id = data.videos?.first?.key
-                self.videoPlayerView.load(withVideoId: id!)
+            if let data = try? decoder.decode(VideoResult.self, from: data) {
+                guard let id = data.videos?.first?.key else { return }
+                self.videoPlayerView.load(withVideoId: id)
             }
         }
     }
@@ -62,7 +63,12 @@ class TVShowDetailsViewController: UIViewController {
         self.descriptionLabel.text = self.tvShow?.overview
         self.filmLanguageLabel.text = self.tvShow?.original_language
         self.firstAirDateLabel.text = self.tvShow?.first_air_date
-        self.voteAverageLabel.text = String(describing:self.tvShow!.vote_average!)
+        
+        if let tvShow = self.tvShow {
+            if let vote = tvShow.vote_average {
+                self.voteAverageLabel.text = String(describing: vote)
+            }
+        }
         
         if let posterPath = self.tvShow?.posterPath {
 
