@@ -28,15 +28,15 @@ struct Constants {
     
     struct viewControllerTitles {
         static let media = "Movie Advisor"
-        static let watchLater = "Watch later"
+        static let watchLater = "Watch Later"
     }
     
     struct ui {
         static let defaultCellIdentifier = "Cell"
         static let okMessage = "Cool 👌"
         
-        static let movieSavedMessage = "Movie saved !"
-        static let tvShowSavedMessage = "TV Show saved !"
+        static let movieSavedMessage = "Movie saved in \(viewControllerTitles.watchLater) !"
+        static let tvShowSavedMessage = "TV Show saved in \(viewControllerTitles.watchLater) !"
         
     }
     

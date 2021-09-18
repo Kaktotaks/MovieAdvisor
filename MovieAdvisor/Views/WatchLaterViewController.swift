@@ -11,17 +11,19 @@ import Alamofire
 
 class WatchLaterViewController: UIViewController {
     
-//    DB properties
     var tvShows: [TVShow] = []
     var movies: [Movie] = []
     
     let realm = try? Realm()
+    
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var TMWLSegmentedControl: UISegmentedControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.title = Constants.viewControllerTitles.watchLater
         
         let tvTableViewCellIdentifier = String(describing: TVShowTableViewCell.self)
         self.tableView.register(UINib(nibName: tvTableViewCellIdentifier, bundle: nil),
@@ -42,19 +44,19 @@ class WatchLaterViewController: UIViewController {
         self.tableView.reloadData()
     }
     
-    //MARK: -
+    //MARK: - Network
     private func getTVShows() -> [TVShow] {
         
-        var resultData: [TVShow] = []
+        var tvShows: [TVShow] = []
         guard let TVsResults = realm?.objects(TVShowsRealm.self) else { return [] }
         for tv in TVsResults {
-            let tvShow = TVShow(from: tv)
-            resultData.append(tvShow)
+            let codabletvShow = TVShow(from: tv)
+            tvShows.append(codabletvShow)
         }
         
-        return resultData
+        return tvShows
     }
-    //MARK: -
+
     private func getMovies() -> [Movie] {
         
         var movies = [Movie]()
@@ -93,7 +95,7 @@ extension WatchLaterViewController: UITableViewDataSource {
         
         switch selectedIndex {
         case 0:
-        
+        //add guard
             let tvShowCell = tableView.dequeueReusableCell(withIdentifier: "TVShowTableViewCell", for: indexPath) as! TVShowTableViewCell
             
                         // UI for TVShows
@@ -137,11 +139,14 @@ extension WatchLaterViewController: UITableViewDataSource {
             }
             
         }
+        // fix in another way
         tableView.reloadData()
         tableView.beginUpdates()
         tableView.endUpdates()
     }
     
+    // move to data manager
+
     func deleteTVShows(objectID: Int) {
         let object = realm?.objects(TVShowsRealm.self).filter("id = %@", objectID).first
         try! realm!.write {
@@ -163,13 +168,13 @@ extension WatchLaterViewController: UITableViewDelegate {
         return .delete
     }
     
+    // move to constants
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return  530
+        return 540
     }
     
     //Appearing cells animation
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
-    {
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let rotationTransform = CATransform3DTranslate(CATransform3DIdentity, 0, 50, 0)
         cell.layer.transform = rotationTransform
         cell.alpha = 0
@@ -185,9 +190,8 @@ extension WatchLaterViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//        let object = self.TMWLSegmentedControl
         let selectedIndex = self.TMWLSegmentedControl.selectedSegmentIndex
-        
+        // move to router
         switch selectedIndex
         {
         case 0:

@@ -17,21 +17,19 @@ class MediaViewController: UIViewController {
         return imageView
     }()
     
-    //    var filteredMovieData: [Movie]!
-    //    var filteredTvShowData: [TVShow]!
     
     var tvShows: [TVShow] = []
     var movies: [Movie] = []
     
+    // Move to data manager
     let realm = try? Realm()
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tvShowMovieSegmentedControl: UISegmentedControl!
-    @IBOutlet weak var searchBar: UISearchBar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         view.addSubview(imageView)
         
         let tvTableViewCellIdentifier = String(describing: TVShowTableViewCell.self)
@@ -51,15 +49,20 @@ class MediaViewController: UIViewController {
         self.navigationController?.navigationBar.prefersLargeTitles = false
     }
     
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.requestTrendingTVShows()
+        self.requestTrendingMovies()
+        
+    }
+    
     //MARK:- Add launchScreen animation
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         imageView.center = view.center
-        launchScreenAnimate() // animate()
-        
-        DispatchQueue.main.asyncAfter(deadline: .now()+0.7, execute: {
-            self.launchScreenAnimate()
-        })
+        launchScreenAnimate()
     }
     
     private func launchScreenAnimate() {
@@ -78,16 +81,6 @@ class MediaViewController: UIViewController {
             self.imageView.alpha = 0
         })
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        self.requestTrendingTVShows()
-        self.requestTrendingMovies()
-        
-    }
-    
-    
     
     //MARK: - Network request for reloading TVs
     func requestTrendingTVShows() {
@@ -258,40 +251,6 @@ extension MediaViewController: UITableViewDelegate {
             cell.alpha = 1.0
         }
     }
-    
-    //MARK: SearchBar config
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
-        let selectedIndex = self.tvShowMovieSegmentedControl.selectedSegmentIndex
-        switch selectedIndex {
-        
-        case 0:
-            self.tvShows = []
-            
-            for tvShow in tvShows {
-                if ((tvShow.name!.lowercased().contains(searchText.lowercased()))) {
-                    self.tvShows.append(tvShow)
-                }
-            }
-        case 1:
-            for movie in movies {
-                if ((movie.name!.lowercased().contains(searchText.lowercased()))) {
-                    self.movies.append(movie)
-                }
-            }
-        default:
-            return
-        }
-        
-        self.tableView.reloadData()
-    }
 }
-
-extension MediaViewController: UISearchBarDelegate{
-    
-}
-// Saving !
-// Saving !
-// Saving !
 
 

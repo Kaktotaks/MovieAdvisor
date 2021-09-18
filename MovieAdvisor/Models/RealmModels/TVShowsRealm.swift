@@ -16,4 +16,8 @@ class TVShowsRealm: Object {
     @objc dynamic var backdrop_path : String?
     @objc dynamic var media_type: String?
     @objc dynamic var posterPath: String?
+//    @objc dynamic var vote_average: Double = 0.0
+//    @objc dynamic var vote_count: Int = 0
+//    @objc dynamic var original_language: String?
+//    @objc dynamic var first_air_date: String = ""
     }
