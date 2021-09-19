@@ -94,7 +94,6 @@ class MediaViewController: UIViewController {
                 self.tvShows = data.tvShows ?? []
                 self.tableView.reloadData()
             }
-            
         }
     }
     
@@ -110,11 +109,8 @@ class MediaViewController: UIViewController {
                 self.movies = data.movies ?? []
                 self.tableView.reloadData()
             }
-            
         }
     }
-    
-    
 }
 
 //MARK: - DataSource for tableView
