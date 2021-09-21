@@ -27,6 +27,8 @@ class MediaViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tvShowMovieSegmentedControl: UISegmentedControl!
     
+    
+    //MARK: - Class Life Сycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -162,6 +164,7 @@ extension MediaViewController: UITableViewDataSource {
         
     }
     
+    // Add action when tvShowMovieSegmented is changing
     @IBAction func tvShowMovieSegmentedChanged(_ sender: UISegmentedControl) {
         self.tableView.reloadData()
     }
@@ -203,7 +206,7 @@ extension MediaViewController: UITableViewDelegate {
         return  540
     }
     
-    //MARK:- Appearing cells animation
+    //MARK:- Appearing cells animation for movies and TV Shows
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
     {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)

@@ -23,27 +23,25 @@ class TVShowDetailsViewController: UIViewController {
     @IBOutlet weak var videoPlayerView: YTPlayerView!
     
     let realm = try? Realm()
-    
     var tvShow: TVShow? = nil
-
+    
+    //MARK: - Class Life Сycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         
         if let id = self.tvShow?.id {
             let stringID = String(describing: id)
             self.requestVideos(with: stringID)
         }
-
-        
     }
     
+    // API request
     func requestVideos(with id: String) {
-        
         let url = "\(Constants.network.tvShowPath)\(id)\(Constants.network.keyForVideos)"
         
         AF.request(url).responseJSON { responce in
-
+            
             let decoder = JSONDecoder()
             guard let data = responce.data else { return }
             
@@ -71,23 +69,25 @@ class TVShowDetailsViewController: UIViewController {
         }
         
         if let posterPath = self.tvShow?.posterPath {
-
-            // Тогда создадим полную ссылку на картинку
+            
+            // Created a full link to the picture
             let urlString = Constants.network.baseImageURL + posterPath
-
-            // И с помощью библиотеки SDWebImage задаем posterImageView картинку, загруженную по url
+            
+            // And using the SDWebImage library, we set posterImageView an image loaded by url
             self.posterImageView.sd_setImage(with: URL(string: urlString), completed: nil)
-
+            
         }
-        
+        // Set the navigation bar title
         self.title = self.tvShow?.name
-  
+        
+        // Set the button "+" to add TV Show to "Watch Later" (Realm)
         let logoutBarButtonItem = UIBarButtonItem(title: "+", style: .done, target: self, action: #selector(addToWatchLaterButtonPressed))
-
+        
         self.navigationItem.rightBarButtonItem  = logoutBarButtonItem
         
     }
     
+    // Add TV Show to realm by clicking "+" button
     @IBAction func addToWatchLaterButtonPressed(_ sender: Any) {
         let tvShowRealm = TVShowsRealm()
         tvShowRealm.name = self.tvShow?.name ?? ""
@@ -97,14 +97,14 @@ class TVShowDetailsViewController: UIViewController {
         tvShowRealm.backdrop_path = self.tvShow?.backdrop_path ?? ""
         tvShowRealm.media_type = self.tvShow?.media_type ?? ""
         tvShowRealm.posterPath = self.tvShow?.posterPath ?? ""
-
+        
         try? realm?.write {
             realm?.add(tvShowRealm)
         }
         self.showAlert()
     }
     
-    
+    // Show alert func
     func showAlert() {
         let alert = UIAlertController(title: Constants.ui.tvShowSavedMessage, message: nil, preferredStyle: .alert)
         

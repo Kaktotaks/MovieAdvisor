@@ -15,14 +15,13 @@ class MovieTableViewCell: UITableViewCell {
     @IBOutlet weak var movieNameLabel: UILabel!
     @IBOutlet weak var desriptionLabel: UILabel!
     
-    
-    
-
+    //MARK: - Class Life Сycle
     override func awakeFromNib() {
         super.awakeFromNib()
         self.containerView.layer.cornerRadius = 24
     }
     
+    //Privat
     private func setupUI() {
         self.movieNameLabel.textColor = .white
         self.desriptionLabel.textColor = .white
@@ -30,7 +29,7 @@ class MovieTableViewCell: UITableViewCell {
         self.selectionStyle = .none
     }
 
-    
+    //Public
     func movieConfigureWith(imageURL: URL?, movieName: String?, desriptionText: String?) {
         self.movieNameLabel.text = movieName
         self.desriptionLabel.text = desriptionText

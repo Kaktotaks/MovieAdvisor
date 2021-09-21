@@ -15,12 +15,13 @@ class TVShowTableViewCell: UITableViewCell {
     @IBOutlet weak var tvNameLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     
-
+    //MARK: - Class Life Сycle
     override func awakeFromNib() {
         super.awakeFromNib()
         self.containerView.layer.cornerRadius = 24
     }
     
+    //Privat
     private func setupUI() {
         self.tvNameLabel.textColor = .white
         self.descriptionLabel.textColor = .white
@@ -28,6 +29,7 @@ class TVShowTableViewCell: UITableViewCell {
         self.selectionStyle = .none
     }
     
+    //Public
     func tvShowConfigureWith(imageURL: URL?, TVName: String?, desriptionText: String?) {
         self.tvNameLabel.text = TVName
         self.descriptionLabel.text = desriptionText

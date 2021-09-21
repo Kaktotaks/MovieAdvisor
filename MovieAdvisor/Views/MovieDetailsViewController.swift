@@ -23,10 +23,9 @@ class MovieDetailsViewController: UIViewController {
     @IBOutlet weak var videoPlayerView: YTPlayerView!
     
     let realm = try? Realm()
-    
-    
     var movie: Movie? = nil
     
+    //MARK: - Class Life Сycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -37,6 +36,7 @@ class MovieDetailsViewController: UIViewController {
         }
     }
     
+    // API request
     func requestVideos(with id: String) {
         
         let url = "\(Constants.network.moviePath)\(id)\(Constants.network.keyForVideos)"
@@ -64,23 +64,22 @@ class MovieDetailsViewController: UIViewController {
         
         if let posterPath = self.movie?.poster_path {
 
-            // Тогда создадим полную ссылку на картинку
+            // Created a full link to the picture
             let urlString = Constants.network.baseImageURL + posterPath
 
-            // И с помощью библиотеки SDWebImage задаем posterImageView картинку, загруженную по url
+            // And using the SDWebImage library, we set posterImageView an image loaded by url
             self.posterImageView.sd_setImage(with: URL(string: urlString), completed: nil)
 
         }
-        
+        // Set the navigation bar title
         self.title = self.movie?.name
   
+        // Set the button "+" to add TV Show to "Watch Later" (Realm)
         let logoutBarButtonItem = UIBarButtonItem(title: "+", style: .done, target: self, action: #selector(addToWatchLaterButtonPressed))
         self.navigationItem.rightBarButtonItem  = logoutBarButtonItem
-        
-        
-        
     }
     
+    // Add TV Show to realm by clicking "+" button
     @IBAction func addToWatchLaterButtonPressed(_ sender: Any) {
         let movieRealm = MoviesRealm()
         movieRealm.name = self.movie?.name ?? ""
@@ -97,7 +96,7 @@ class MovieDetailsViewController: UIViewController {
         self.showAlert()
     }
     
-    
+    // Show alert func
     func showAlert() {
         let alert = UIAlertController(title: Constants.ui.movieSavedMessage, message: nil, preferredStyle: .alert)
         

@@ -20,6 +20,7 @@ class WatchLaterViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var TMWLSegmentedControl: UISegmentedControl!
     
+    //MARK: - Class Life Сycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -27,11 +28,11 @@ class WatchLaterViewController: UIViewController {
         
         let tvTableViewCellIdentifier = String(describing: TVShowTableViewCell.self)
         self.tableView.register(UINib(nibName: tvTableViewCellIdentifier, bundle: nil),
-                                 forCellReuseIdentifier: tvTableViewCellIdentifier)
+                                forCellReuseIdentifier: tvTableViewCellIdentifier)
         
         let movieTableViewCellIdentifier = String(describing: MovieTableViewCell.self)
         self.tableView.register(UINib(nibName: movieTableViewCellIdentifier, bundle: nil),
-                                 forCellReuseIdentifier: movieTableViewCellIdentifier)
+                                forCellReuseIdentifier: movieTableViewCellIdentifier)
         
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: Constants.ui.defaultCellIdentifier)
     }
@@ -56,7 +57,7 @@ class WatchLaterViewController: UIViewController {
         
         return tvShows
     }
-
+    
     private func getMovies() -> [Movie] {
         
         var movies = [Movie]()
@@ -95,27 +96,27 @@ extension WatchLaterViewController: UITableViewDataSource {
         
         switch selectedIndex {
         case 0:
-        //add guard
+            //add guard
             let tvShowCell = tableView.dequeueReusableCell(withIdentifier: "TVShowTableViewCell", for: indexPath) as! TVShowTableViewCell
             
-                        // UI for TVShows
-                        let tvShowMedia = self.tvShows[indexPath.row]
-                        let tvShowImagePathString = Constants.network.defaultImagePath + tvShowMedia.posterPath!
-                        tvShowCell.tvShowConfigureWith(imageURL: URL(string: tvShowImagePathString),
-                                               TVName: tvShowMedia.name,
-                                               desriptionText: tvShowMedia.overview)
+            // UI for TVShows
+            let tvShowMedia = self.tvShows[indexPath.row]
+            let tvShowImagePathString = Constants.network.defaultImagePath + tvShowMedia.posterPath!
+            tvShowCell.tvShowConfigureWith(imageURL: URL(string: tvShowImagePathString),
+                                           TVName: tvShowMedia.name,
+                                           desriptionText: tvShowMedia.overview)
             
-                        return tvShowCell
+            return tvShowCell
         case 1:
-        
+            
             let movieCell = tableView.dequeueReusableCell(withIdentifier: "MovieTableViewCell", for: indexPath) as! MovieTableViewCell
-
+            
             // UI for Movies
             let moviesMedia = self.movies[indexPath.row]
             let movieImagePathString = Constants.network.defaultImagePath + moviesMedia.poster_path!
             movieCell.movieConfigureWith(imageURL: URL(string: movieImagePathString),
-                                          movieName: moviesMedia.name,
-                                          desriptionText: moviesMedia.overview)
+                                         movieName: moviesMedia.name,
+                                         desriptionText: moviesMedia.overview)
             return movieCell
             
         default:
@@ -123,7 +124,7 @@ extension WatchLaterViewController: UITableViewDataSource {
         }
         
     }
-//MARK: - Delete Function
+    //MARK: - Delete Function
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
         let selectedIndex = self.TMWLSegmentedControl.selectedSegmentIndex
@@ -146,7 +147,7 @@ extension WatchLaterViewController: UITableViewDataSource {
     }
     
     // move to data manager
-
+    
     func deleteTVShows(objectID: Int) {
         let object = realm?.objects(TVShowsRealm.self).filter("id = %@", objectID).first
         try! realm!.write {
@@ -161,7 +162,7 @@ extension WatchLaterViewController: UITableViewDataSource {
         }
     }
 }
-    
+
 
 extension WatchLaterViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
@@ -198,8 +199,6 @@ extension WatchLaterViewController: UITableViewDelegate {
                 detailViewController.tvShow = self.tvShows[indexPath.row]
                 self.navigationController?.pushViewController(detailViewController, animated: true)
             }
-
-            // push wievcontrollers
         case 1:
             let movieIdentifier = String(describing: MovieDetailsViewController.self)
             if let detailViewController = storyboard.instantiateViewController(identifier: movieIdentifier) as? MovieDetailsViewController {
@@ -211,5 +210,3 @@ extension WatchLaterViewController: UITableViewDelegate {
         }
     }
 }
-
-//MARK: - Переход на DetailViewControllers ?
