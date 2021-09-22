@@ -146,8 +146,6 @@ extension WatchLaterViewController: UITableViewDataSource {
         tableView.endUpdates()
     }
     
-    // move to data manager
-    
     func deleteTVShows(objectID: Int) {
         let object = realm?.objects(TVShowsRealm.self).filter("id = %@", objectID).first
         try! realm!.write {
@@ -169,7 +167,6 @@ extension WatchLaterViewController: UITableViewDelegate {
         return .delete
     }
     
-    // move to constants
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 540
     }

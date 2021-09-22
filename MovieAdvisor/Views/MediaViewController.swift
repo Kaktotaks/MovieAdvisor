@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Alamofire
 import RealmSwift
 
 class MediaViewController: UIViewController {
@@ -55,8 +54,15 @@ class MediaViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.requestTrendingTVShows()
-        self.requestTrendingMovies()
+        NetworkManager.shared.requestTrendingTVShows(completion: { tvShows in
+            self.tvShows = tvShows
+            self.tableView.reloadData()
+        })
+        
+        NetworkManager.shared.requestTrendingMovies(completion: { movies in 
+            self.movies = movies
+            self.tableView.reloadData()
+        })
         
     }
     
@@ -82,36 +88,6 @@ class MediaViewController: UIViewController {
             
             self.imageView.alpha = 0
         })
-    }
-    
-    //MARK: - Network request for reloading TVs
-    func requestTrendingTVShows() {
-        
-        let url = "\(Constants.network.trendingTVShowPath)\(Constants.network.apiKey)"
-        AF.request(url).responseJSON { responce in
-            
-            let decoder = JSONDecoder()
-            
-            if let data = try? decoder.decode(PopularTVShowResult.self, from: responce.data!){
-                self.tvShows = data.tvShows ?? []
-                self.tableView.reloadData()
-            }
-        }
-    }
-    
-    //MARK: - Network request for reloading movies
-    func requestTrendingMovies() {
-        
-        let url = "\(Constants.network.trendingMoviePath)\(Constants.network.apiKey)"
-        AF.request(url).responseJSON { responce in
-            
-            let decoder = JSONDecoder()
-            
-            if let data = try? decoder.decode(PopularMovieResult.self, from: responce.data!){
-                self.movies = data.movies ?? []
-                self.tableView.reloadData()
-            }
-        }
     }
 }
 

@@ -24,6 +24,7 @@
 		E44B89F126CAACD1008ED8FC /* PopularMovieResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44B89EF26CAACD1008ED8FC /* PopularMovieResult.swift */; };
 		E44B89F226CAACD1008ED8FC /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44B89F026CAACD1008ED8FC /* Movie.swift */; };
 		E45B344C26EBB2EA00B529D8 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45B344B26EBB2EA00B529D8 /* HomeViewController.swift */; };
+		E47F9C8B26FA43F900473EB5 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47F9C8A26FA43F900473EB5 /* NetworkManager.swift */; };
 		E4CB063A26DD14000020DA48 /* MovieDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CB063926DD14000020DA48 /* MovieDetailsViewController.swift */; };
 		E4CB063C26DD163F0020DA48 /* MoviesRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CB063B26DD163F0020DA48 /* MoviesRealm.swift */; };
 		E4CB063E26E0CDC00020DA48 /* GradienView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4CB063D26E0CDC00020DA48 /* GradienView.swift */; };
@@ -58,6 +59,7 @@
 		E44B89EF26CAACD1008ED8FC /* PopularMovieResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopularMovieResult.swift; sourceTree = "<group>"; };
 		E44B89F026CAACD1008ED8FC /* Movie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		E45B344B26EBB2EA00B529D8 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		E47F9C8A26FA43F900473EB5 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		E4CB063926DD14000020DA48 /* MovieDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsViewController.swift; sourceTree = "<group>"; };
 		E4CB063B26DD163F0020DA48 /* MoviesRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesRealm.swift; sourceTree = "<group>"; };
 		E4CB063D26E0CDC00020DA48 /* GradienView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradienView.swift; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 		E44B897726C6678F008ED8FC /* MovieAdvisor */ = {
 			isa = PBXGroup;
 			children = (
+				E47F9C8926FA435700473EB5 /* Managers */,
 				1173853226EE0A91002E3DA3 /* Custom */,
 				E44B89B726C66DE1008ED8FC /* Common */,
 				E44B899226C66A83008ED8FC /* Views */,
@@ -207,6 +210,14 @@
 				E44B89F026CAACD1008ED8FC /* Movie.swift */,
 			);
 			path = Movies;
+			sourceTree = "<group>";
+		};
+		E47F9C8926FA435700473EB5 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				E47F9C8A26FA43F900473EB5 /* NetworkManager.swift */,
+			);
+			path = Managers;
 			sourceTree = "<group>";
 		};
 		E4CB064726E21FC60020DA48 /* MovieCells */ = {
@@ -373,6 +384,7 @@
 				E44B89F126CAACD1008ED8FC /* PopularMovieResult.swift in Sources */,
 				E44B899626C66AE5008ED8FC /* WatchLaterViewController.swift in Sources */,
 				E44B89F226CAACD1008ED8FC /* Movie.swift in Sources */,
+				E47F9C8B26FA43F900473EB5 /* NetworkManager.swift in Sources */,
 				E44B897926C6678F008ED8FC /* AppDelegate.swift in Sources */,
 				E44B89B426C66D46008ED8FC /* TVShowsRealm.swift in Sources */,
 				E44B89B226C66D31008ED8FC /* Video.swift in Sources */,
