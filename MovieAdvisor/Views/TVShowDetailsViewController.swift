@@ -38,7 +38,7 @@ class TVShowDetailsViewController: UIViewController {
     
     // API request
     func requestVideos(with id: String) {
-        let url = "\(Constants.network.tvShowPath)\(id)\(Constants.network.keyForVideos)"
+        let url = "\(Constants.Network.tvShowPath)\(id)\(Constants.Network.keyForVideos)"
         
         AF.request(url).responseJSON { responce in
             
@@ -71,7 +71,7 @@ class TVShowDetailsViewController: UIViewController {
         if let posterPath = self.tvShow?.posterPath {
             
             // Created a full link to the picture
-            let urlString = Constants.network.baseImageURL + posterPath
+            let urlString = Constants.Network.baseImageURL + posterPath
             
             // And using the SDWebImage library, we set posterImageView an image loaded by url
             self.posterImageView.sd_setImage(with: URL(string: urlString), completed: nil)
@@ -106,10 +106,10 @@ class TVShowDetailsViewController: UIViewController {
     
     // Show alert func
     func showAlert() {
-        let alert = UIAlertController(title: Constants.ui.tvShowSavedMessage, message: nil, preferredStyle: .alert)
+        let alert = UIAlertController(title: Constants.UI.tvShowSavedMessage, message: nil, preferredStyle: .alert)
         
-        alert.addAction(UIAlertAction(title: Constants.ui.okMessage, style: .cancel, handler: { action in
-            print("Tapped \(Constants.ui.okMessage)")
+        alert.addAction(UIAlertAction(title: Constants.UI.okMessage, style: .cancel, handler: { action in
+            print("Tapped \(Constants.UI.okMessage)")
         }))
         
         present(alert, animated: true)

@@ -43,10 +43,10 @@ class MediaViewController: UIViewController {
         
         
         
-        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: Constants.ui.defaultCellIdentifier)
+        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: Constants.UI.defaultCellIdentifier)
         
         
-        self.title = Constants.viewControllerTitles.media
+        self.title = Constants.ViewControllerTitles.media
         self.navigationController?.navigationBar.prefersLargeTitles = false
     }
     
@@ -117,7 +117,7 @@ extension MediaViewController: UITableViewDataSource {
             
             // UI for TVShows
             let tvShowMedia = self.tvShows[indexPath.row]
-            let tvShowImagePathString = Constants.network.defaultImagePath + tvShowMedia.posterPath!
+            let tvShowImagePathString = Constants.Network.defaultImagePath + tvShowMedia.posterPath!
             tvShowCell.tvShowConfigureWith(imageURL: URL(string: tvShowImagePathString),
                                            TVName: tvShowMedia.name,
                                            desriptionText: tvShowMedia.overview)
@@ -129,7 +129,7 @@ extension MediaViewController: UITableViewDataSource {
             
             // UI for Movies
             let moviesMedia = self.movies[indexPath.row]
-            let movieImagePathString = Constants.network.defaultImagePath + moviesMedia.poster_path!
+            let movieImagePathString = Constants.Network.defaultImagePath + moviesMedia.poster_path!
             movieCell.movieConfigureWith(imageURL: URL(string: movieImagePathString),
                                          movieName: moviesMedia.name,
                                          desriptionText: moviesMedia.overview)

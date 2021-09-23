@@ -9,7 +9,7 @@ import Foundation
 
 struct Constants {
     
-    struct network {
+    struct Network {
         
         static let apiKey = "242869b42a65c82d7bfdc955a766ce9f"
         static let baseImageURL = "https://image.tmdb.org/t/p/w500/"
@@ -26,17 +26,17 @@ struct Constants {
         
     }
     
-    struct viewControllerTitles {
+    struct ViewControllerTitles {
         static let media = "Movie Advisor"
         static let watchLater = "Watch Later"
     }
     
-    struct ui {
+    struct UI {
         static let defaultCellIdentifier = "Cell"
         static let okMessage = "Cool 👌"
         
-        static let movieSavedMessage = "Movie saved in \(viewControllerTitles.watchLater) !"
-        static let tvShowSavedMessage = "TV Show saved in \(viewControllerTitles.watchLater) !"
+        static let movieSavedMessage = "Movie saved in \(ViewControllerTitles.watchLater) !"
+        static let tvShowSavedMessage = "TV Show saved in \(ViewControllerTitles.watchLater) !"
         
     }
     

@@ -24,7 +24,7 @@ class WatchLaterViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = Constants.viewControllerTitles.watchLater
+        self.title = Constants.ViewControllerTitles.watchLater
         
         let tvTableViewCellIdentifier = String(describing: TVShowTableViewCell.self)
         self.tableView.register(UINib(nibName: tvTableViewCellIdentifier, bundle: nil),
@@ -34,7 +34,7 @@ class WatchLaterViewController: UIViewController {
         self.tableView.register(UINib(nibName: movieTableViewCellIdentifier, bundle: nil),
                                 forCellReuseIdentifier: movieTableViewCellIdentifier)
         
-        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: Constants.ui.defaultCellIdentifier)
+        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: Constants.UI.defaultCellIdentifier)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -101,7 +101,7 @@ extension WatchLaterViewController: UITableViewDataSource {
             
             // UI for TVShows
             let tvShowMedia = self.tvShows[indexPath.row]
-            let tvShowImagePathString = Constants.network.defaultImagePath + tvShowMedia.posterPath!
+            let tvShowImagePathString = Constants.Network.defaultImagePath + tvShowMedia.posterPath!
             tvShowCell.tvShowConfigureWith(imageURL: URL(string: tvShowImagePathString),
                                            TVName: tvShowMedia.name,
                                            desriptionText: tvShowMedia.overview)
@@ -113,7 +113,7 @@ extension WatchLaterViewController: UITableViewDataSource {
             
             // UI for Movies
             let moviesMedia = self.movies[indexPath.row]
-            let movieImagePathString = Constants.network.defaultImagePath + moviesMedia.poster_path!
+            let movieImagePathString = Constants.Network.defaultImagePath + moviesMedia.poster_path!
             movieCell.movieConfigureWith(imageURL: URL(string: movieImagePathString),
                                          movieName: moviesMedia.name,
                                          desriptionText: moviesMedia.overview)

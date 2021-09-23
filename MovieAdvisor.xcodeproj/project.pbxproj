@@ -111,11 +111,10 @@
 		E44B897726C6678F008ED8FC /* MovieAdvisor */ = {
 			isa = PBXGroup;
 			children = (
-				E47F9C8926FA435700473EB5 /* Managers */,
-				1173853226EE0A91002E3DA3 /* Custom */,
-				E44B89B726C66DE1008ED8FC /* Common */,
 				E44B899226C66A83008ED8FC /* Views */,
 				E44B899126C669E1008ED8FC /* Models */,
+				E47F9C8926FA435700473EB5 /* Managers */,
+				E44B89B726C66DE1008ED8FC /* Common */,
 				E44B898C26C667E5008ED8FC /* Podfile */,
 				E44B898E26C66944008ED8FC /* Main.storyboard */,
 				E44B898626C66790008ED8FC /* Info.plist */,
@@ -135,13 +134,13 @@
 		E44B899226C66A83008ED8FC /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				E4CB064E26E2827D0020DA48 /* Constants.swift */,
+				E44B899726C66B12008ED8FC /* Cells */,
+				1173853226EE0A91002E3DA3 /* Custom */,
 				E44B897C26C6678F008ED8FC /* MediaViewController.swift */,
 				E44B899526C66AE5008ED8FC /* WatchLaterViewController.swift */,
 				E44B899326C66AC0008ED8FC /* TVShowDetailsViewController.swift */,
 				E4CB063926DD14000020DA48 /* MovieDetailsViewController.swift */,
 				E45B344B26EBB2EA00B529D8 /* HomeViewController.swift */,
-				E44B899726C66B12008ED8FC /* Cells */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -195,6 +194,7 @@
 		E44B89B726C66DE1008ED8FC /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				E4CB064E26E2827D0020DA48 /* Constants.swift */,
 				E44B897826C6678F008ED8FC /* AppDelegate.swift */,
 				E44B897A26C6678F008ED8FC /* SceneDelegate.swift */,
 				E44B898126C66790008ED8FC /* Assets.xcassets */,

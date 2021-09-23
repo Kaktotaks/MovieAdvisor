@@ -15,7 +15,7 @@ struct NetworkManager {
     //MARK: - Network request for reloading TVs
     func requestTrendingTVShows(completion: @escaping(([TVShow]) -> ())) {
         
-        let url = "\(Constants.network.trendingTVShowPath)\(Constants.network.apiKey)"
+        let url = "\(Constants.Network.trendingTVShowPath)\(Constants.Network.apiKey)"
         AF.request(url).responseJSON { responce in
             
             let decoder = JSONDecoder()
@@ -30,7 +30,7 @@ struct NetworkManager {
     //MARK: - Network request for reloading movies
     func requestTrendingMovies(completion: @escaping(([Movie]) -> ())) {
         
-        let url = "\(Constants.network.trendingMoviePath)\(Constants.network.apiKey)"
+        let url = "\(Constants.Network.trendingMoviePath)\(Constants.Network.apiKey)"
         AF.request(url).responseJSON { responce in
             
             let decoder = JSONDecoder()
