@@ -36,7 +36,7 @@ class MovieDetailsViewController: UIViewController {
         }
     }
     
-    // API request
+    // API request for videos
     func requestVideos(with id: String) {
         
         let url = "\(Constants.Network.moviePath)\(id)\(Constants.Network.keyForVideos)"
@@ -88,6 +88,9 @@ class MovieDetailsViewController: UIViewController {
         movieRealm.id = self.movie?.id ?? 0
         movieRealm.backdrop_path = self.movie?.backdrop_path ?? ""
         movieRealm.posterPath = self.movie?.poster_path ?? ""
+        movieRealm.voteAverage = self.movie?.vote_average ?? 0.0 //!
+        movieRealm.originalLanguage = self.movie?.original_language //!
+        movieRealm.releaseDate = self.movie?.release_date ?? "" //!
 
         try? realm?.write {
             realm?.add(movieRealm)

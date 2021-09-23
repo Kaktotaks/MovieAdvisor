@@ -14,7 +14,6 @@ import Alamofire
 
 class TVShowDetailsViewController: UIViewController {
     
-    
     @IBOutlet weak var posterImageView: UIImageView!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var filmLanguageLabel: UILabel!
@@ -36,7 +35,7 @@ class TVShowDetailsViewController: UIViewController {
         }
     }
     
-    // API request
+    // API request for videos
     func requestVideos(with id: String) {
         let url = "\(Constants.Network.tvShowPath)\(id)\(Constants.Network.keyForVideos)"
         
@@ -97,6 +96,10 @@ class TVShowDetailsViewController: UIViewController {
         tvShowRealm.backdrop_path = self.tvShow?.backdrop_path ?? ""
         tvShowRealm.media_type = self.tvShow?.media_type ?? ""
         tvShowRealm.posterPath = self.tvShow?.posterPath ?? ""
+        
+//        tvShowRealm.original_language = self.tvShow?.original_language ?? ""
+//        tvShowRealm.vote_average = self.tvShow?.vote_average ?? 0.0
+//        tvShowRealm.first_air_date = self.tvShow?.first_air_date ?? ""
         
         try? realm?.write {
             realm?.add(tvShowRealm)
