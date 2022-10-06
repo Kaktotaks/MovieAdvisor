@@ -60,7 +60,8 @@ class MovieDetailsViewController: UIViewController {
         self.descriptionLabel.text = self.movie?.overview
         self.filmLanguageLabel.text = self.movie?.original_language
         self.firstAirDateLabel.text = self.movie?.release_date
-        self.voteAverageLabel.text = String(describing:self.movie!.vote_average!)
+        guard let voteAvarage = self.movie?.vote_average else { return }
+        self.voteAverageLabel.text = String(describing: Int(voteAvarage))
         
         if let posterPath = self.movie?.poster_path {
 
@@ -88,9 +89,9 @@ class MovieDetailsViewController: UIViewController {
         movieRealm.id = self.movie?.id ?? 0
         movieRealm.backdrop_path = self.movie?.backdrop_path ?? ""
         movieRealm.posterPath = self.movie?.poster_path ?? ""
-        movieRealm.voteAverage = self.movie?.vote_average ?? 0.0 //!
-        movieRealm.originalLanguage = self.movie?.original_language //!
-        movieRealm.releaseDate = self.movie?.release_date ?? "" //!
+        movieRealm.voteAverage = self.movie?.vote_average ?? 0.0
+        movieRealm.originalLanguage = self.movie?.original_language
+        movieRealm.releaseDate = self.movie?.release_date ?? ""
 
         try? realm?.write {
             realm?.add(movieRealm)

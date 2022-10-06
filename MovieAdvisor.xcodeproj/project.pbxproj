@@ -136,10 +136,9 @@
 			children = (
 				E44B899726C66B12008ED8FC /* Cells */,
 				1173853226EE0A91002E3DA3 /* Custom */,
+				E47A51872708E4A200C8BD51 /* DetailsViewControllers */,
 				E44B897C26C6678F008ED8FC /* MediaViewController.swift */,
 				E44B899526C66AE5008ED8FC /* WatchLaterViewController.swift */,
-				E44B899326C66AC0008ED8FC /* TVShowDetailsViewController.swift */,
-				E4CB063926DD14000020DA48 /* MovieDetailsViewController.swift */,
 				E45B344B26EBB2EA00B529D8 /* HomeViewController.swift */,
 			);
 			path = Views;
@@ -210,6 +209,15 @@
 				E44B89F026CAACD1008ED8FC /* Movie.swift */,
 			);
 			path = Movies;
+			sourceTree = "<group>";
+		};
+		E47A51872708E4A200C8BD51 /* DetailsViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				E44B899326C66AC0008ED8FC /* TVShowDetailsViewController.swift */,
+				E4CB063926DD14000020DA48 /* MovieDetailsViewController.swift */,
+			);
+			path = DetailsViewControllers;
 			sourceTree = "<group>";
 		};
 		E47F9C8926FA435700473EB5 /* Managers */ = {
@@ -542,6 +550,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SY6Z34435G;
 				INFOPLIST_FILE = MovieAdvisor/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -562,6 +571,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SY6Z34435G;
 				INFOPLIST_FILE = MovieAdvisor/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -60,9 +60,10 @@ struct TVShow: Codable {
         self.backdrop_path = tvShowsRealm.backdrop_path
         self.media_type = tvShowsRealm.media_type
         self.posterPath = tvShowsRealm.posterPath
-//        self.vote_average = tvShowsRealm.vote_average
-//        self.original_language = tvShowsRealm.original_language
-//        self.first_air_date = tvShowsRealm.first_air_date
+        
+        self.original_language = tvShowsRealm.originalLanguage
+        self.first_air_date = tvShowsRealm.releaseDate
+        self.vote_average = tvShowsRealm.voteAverage
     }
     
 }

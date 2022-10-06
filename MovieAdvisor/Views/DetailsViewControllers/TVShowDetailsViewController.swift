@@ -27,8 +27,8 @@ class TVShowDetailsViewController: UIViewController {
     //MARK: - Class Life Сycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
+        self.descriptionLabel.text = self.tvShow?.overview
+
         if let id = self.tvShow?.id {
             let stringID = String(describing: id)
             self.requestVideos(with: stringID)
@@ -57,13 +57,12 @@ class TVShowDetailsViewController: UIViewController {
         
         
         self.title = self.tvShow?.name
-        self.descriptionLabel.text = self.tvShow?.overview
         self.filmLanguageLabel.text = self.tvShow?.original_language
         self.firstAirDateLabel.text = self.tvShow?.first_air_date
         
         if let tvShow = self.tvShow {
             if let vote = tvShow.vote_average {
-                self.voteAverageLabel.text = String(describing: vote)
+                self.voteAverageLabel.text = String(describing: Int(vote))
             }
         }
         
@@ -97,9 +96,9 @@ class TVShowDetailsViewController: UIViewController {
         tvShowRealm.media_type = self.tvShow?.media_type ?? ""
         tvShowRealm.posterPath = self.tvShow?.posterPath ?? ""
         
-//        tvShowRealm.original_language = self.tvShow?.original_language ?? ""
-//        tvShowRealm.vote_average = self.tvShow?.vote_average ?? 0.0
-//        tvShowRealm.first_air_date = self.tvShow?.first_air_date ?? ""
+        tvShowRealm.voteAverage = self.tvShow?.vote_average ?? 0.0
+        tvShowRealm.originalLanguage = self.tvShow?.original_language
+        tvShowRealm.releaseDate = self.tvShow?.first_air_date
         
         try? realm?.write {
             realm?.add(tvShowRealm)
